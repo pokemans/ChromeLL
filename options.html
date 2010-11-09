@@ -233,12 +233,13 @@ function restore(){
 	else{
 		document.disable.chromeLL_userhighlighton.checked = true;
 	}
+    /*
 	if(localStorage['chromeLL_updatereaders'] == "false"){
 		document.disable.chromeLL_updatereaders.checked = false;
 	}
 	else{
 		document.disable.chromeLL_updatereaders.checked = true;
-	}
+	}*/
 	if(localStorage['chromeLL_loadquotes'] == "false"){
 		document.disable.chromeLL_loadquotes.checked = false;
 	}
@@ -286,7 +287,7 @@ function restore(){
 			document.disable.color1.item(y).value = colors[y];
 		}
 	}*/
-    setNotify();
+    //setNotify();
 }
 function save(){
 	localStorage['chromeLL_quicklinks'] = document.disable.quicklinks.value;
@@ -395,7 +396,7 @@ function qsaver(){
 	qrref(userhighlight);
 }
 function adduser(){
-	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)"> <input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
+	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)" disabled> <input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
 }
 function qadduser(){
 	document.getElementsByClassName('qrlist').item(0).innerHTML += '<span class="qr_list"><textarea name="qrtext" style="width:50%; height:60px;">Reply</textarea>&nbsp;<span style="position:relative; top:-40px;"><input type="text" name="qrtitle" style="width:90px;" value="title"><input type="button" onclick="javascript:parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)" value="-"></span><br></span>';
@@ -546,7 +547,7 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <img src="/images/shorttitle.png"></td><td><input type="checkbox" name="chromeLL_shorttitle"> - Livelinks Page Title update</td></tr>
 <tr><td><img src="/images/topiclinks.png"></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Topic Quick Links</td></tr>
 <!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
-<tr><td><img src="/images/notification2.png"></td><td><input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chromeLL_hlnotify" disabled> - When highlighted user posts<br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chromeLL_qtnotify" disabled> - When I am quoted</span></td></tr>
+<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify" disabled> - Notify when I am quoted</span></td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore Topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
@@ -565,7 +566,7 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <div class="qrlist" style="margin-left:200px"></div>
 <div class="line"></div><div class="line"></div>
 <div class="info">userscripts:</div>
-<input type="checkbox" name="chromeLL_updatereaders"> - Auto-update Topic Readers (by <a href="http://endoftheinter.net/profile.php?user=11160">l0tics</a>)<br>
+<!--<input type="checkbox" name="chromeLL_updatereaders"> - Auto-update Topic Readers (by <a href="http://endoftheinter.net/profile.php?user=11160">l0tics</a>)<br>-->
 <input type="checkbox" name="chromeLL_loadquotes"> - Load Quotes on Click (by <a href="http://endoftheinter.net/profile.php?user=10295">headbanger</a>)<br>
 <input type="checkbox" name="chromeLL_numberposts"> - Number Posts (by <a href="http://endoftheinter.net/profile.php?user=11503">pendevin</a>)<br>
 <input type="checkbox" name="chromeLL_ctcount"> - CT Count (by <a href="http://endoftheinter.net/profile.php?user=5563">citizenray</a>/<a href="http://endoftheinter.net/profile.php?user=2377">Psyduck</a>)<br>

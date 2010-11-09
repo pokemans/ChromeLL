@@ -1,6 +1,6 @@
 chrome.extension.sendRequest({need: "chromeLL_updatereaders"}, function(response) {
   if(response.data == "true"){
-  	updatereaders();
+  	//updatereaders();
   }
 });
 function updatereaders(){
