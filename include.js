@@ -17,7 +17,7 @@ function topicnotifier(){
     if(window.location.href.indexOf('showmessages') != -1){
         document.getElementsByClassName('userbar')[0].innerHTML += ' | <a href="##" id="chromeLL_watch" onclick="toggleWatch(window.location.href)">Watch</a>';
         if(localStorage['chromeLL_watched'] == undefined){
-            localStorage['chromeLL_watched'] = '89234234;';
+            localStorage['chromeLL_watched'] = '';
         }
         var tpcs = new Array();
         var get=getUrlVars(window.location.href);
@@ -57,10 +57,14 @@ function notifywatch(e){
     }
 }
 function notify(e, dtitle){
-	var by = e.target.getElementsByClassName("message-top")[0].getElementsByTagName('a')[0].innerHTML;
-	chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
-	    enotify(dtitle, by, response.data);
-	});
+    chrome.extension.sendRequest({need: "chromeLL_hlnotify"}, function(response) {
+        if(response.data == 'true'){
+            var by = e.target.getElementsByClassName("message-top")[0].getElementsByTagName('a')[0].innerHTML;
+            chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
+                enotify(dtitle, by, response.data);
+            });
+        }
+    });
 }
 function enotifywatch(t, m){
 	t = t.replace(/End of the Internet - /i, '');
@@ -70,7 +74,6 @@ function enotifywatch(t, m){
 }
 function enotify(t, m, data){
 	t = t.replace(/End of the Internet - /i, '');
-	console.log("enotify: " + data);
 	var over = data.split(';');
 	var users = new Array();
 	var colors = new Array();
@@ -81,7 +84,7 @@ function enotify(t, m, data){
 		colors[q] = over[q].split(':')[1].toLowerCase();
 	}
 	for(var i = 0; users[i]; i++){
-		if(users[i] == m){
+		if(users[i].toLowerCase() == m.toLowerCase()){
 			chrome.extension.sendRequest({need: "notify", title: "Post by " + m, message: t}, function(response) {
 				// empty
 			});
@@ -244,19 +247,8 @@ function setAllowNotification()
 {
 window.webkitNotifications.requestPermission(permissionGranted);
 }
-function getChatList(){
 /*
-	$.get("http://chat.chairface.org/api/1/", function(data){
-	                console.log(data);
-        });
-        var xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://www.google.com/", true);
-	xhr.onreadystatechange = function() {
-	  if (xhr.readyState == 4) {
-	    console.log(xhr.responseText);
-	  }
-	}
-	xhr.send();*/
+function getChatList(){
 	$().ready(function(){ 
 	    var url = 'http://www.google.com/';
 	    $.get(url, function(data) {
@@ -308,7 +300,7 @@ function getMessages(){
 		console.log(resp.data);
 		localStorage['chromell_chat_data'] += resp.data;
 	});
-}
+}*/
 /*
 getMessages();
 var chatWindow = '<div class="chat_window" style="width: 200px; height: 300px; display: none;"><form name="chat_form" onsubmit="chat_postmsg(this); return false;"><div id="chat_text" style="top: 0; width: 100%; height: 60%; background: #ccc;"></div><textarea name="chat_msgcontent" style="bottom: 0; width: 100%; height: 20%;"></textarea><input type="submit" style="display: none"></form>';

@@ -1,17 +1,27 @@
 chrome.extension.sendRequest({need: "chromeLL_userhighlighton"}, function(response) {
   if(response.data == "true"){
-  document.addEventListener('DOMNodeInserted', reupdate, false);
+  //document.addEventListener('DOMNodeInserted', reupdate, false);
   chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
     userhl(response.data);
 });
 }
 });
 function reupdate(e){
+    try{
+        e.target.getElementsByClassName("message-top");
+        if(e.target.getElementsByClassName("message-top").item(0) != null){
+            chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
+                userhl(response.data);
+            });
+        }
+    }catch(e){
+        //return 0;
+    }/*
 	if(e.target.getElementsByClassName("message-top").item(0) != null){
 		chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
-	   		userhl(response.data);
+            userhl(response.data);
 		});
-	}
+	}*/
 }
 function userhl(ulist){
 var over = ulist.split(';');
@@ -50,6 +60,7 @@ if(w.indexOf("showtopics") != -1){
 	}
 }
 if(w.indexOf("showmessages") != -1){
+    try{
 	var s = document.getElementsByClassName('message-top');
 	var tc = '';
 	for(var i = 0; s.item(i); i++){
@@ -58,16 +69,17 @@ if(w.indexOf("showmessages") != -1){
 					for(var e = 0; users[e]; e++){
 						if(users[e] == tc){
 							index = e;
-							console.log("found tc to highlight: " + e);
+							//console.log("found tc to highlight: " + e);
 						}
 					}
 					s.item(i).style.background = "#" + colors[index];
-					document.getElementsByClassName('message')[i].style.color = '#' + textc[index];
+					//document.getElementsByClassName('message')[i].style.color = '#' + textc[index];
 					//console.log("userhl: " + s.item(i).parentNode);
 					//console.log("highlighing user \"" + tc + "\" color " + colors[index]);
 		}
 		//console.log("(topic) " + i + " - " + tc);
 	}
+    }catch(e){console.log('userhl died ' + e);}
 }
 if(w.indexOf("main.php") != -1){
 	var g = document.getElementsByTagName('tr');
@@ -89,11 +101,13 @@ if(w.indexOf("main.php") != -1){
 		//console.log("(homepage) " + i + " - " + tc + " (" + userstring.indexOf(tc) + ")");
 	}
 }
-document.addEventListener('DOMNodeInserted', function(event){ update_hl(ulist, event) }, false);
+document.addEventListener('DOMNodeInserted', reupdate /*function(event){ update_hl(ulist, event) }*/, false);
 }
 function update_hl(ul, e){
+/*
 	try{e.target.getElementsByClassName("message-top").item(0);}
 	catch (e){
+        console.log('userhl update dying: ' + e);
 		return 0;
 	}
 	var over = ul.split(';');
@@ -113,5 +127,6 @@ function update_hl(ul, e){
 				s.style.background = colors[index];
 			}
 		}
-	}
+	}*/
+    //userhl(ul);
 }

@@ -150,7 +150,7 @@ try{
 			}
 		}
 	}
-}catch(e){}
+}catch(e){console.log("rehl: " + e)}
 }
 function highlight(element, color){
 	for(var i = 0; element.getElementsByTagName('td').item(i); i++){

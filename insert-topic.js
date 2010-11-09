@@ -57,13 +57,12 @@ document.addEventListener('DOMNodeInserted', insmsg, false);
 function toggleWatch(loc){
 	get = getUrlVars(loc);
 	if(localStorage['chromeLL_watched'].indexOf(get['topic']) == -1){
-	console.log('1');
 		localStorage['chromeLL_watched'] += ';' + get['topic'];
 		document.getElementById('chromeLL_watch').innerHTML = 'Unwatch'
 		location.reload(true);
 	}else{
-		var re = new RegExp(get['topic'],"g");
-		console.log('2 ' + re);
+		var re = new RegExp(';' + get['topic'],"g");
+		//console.log('2 ' + re);
 		localStorage['chromeLL_watched'] = localStorage['chromeLL_watched'].replace(re, '');
 		location.reload(true);
 	}

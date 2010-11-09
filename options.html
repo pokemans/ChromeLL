@@ -13,6 +13,9 @@ body{
 	background:#CAD2DB;
 	font-family:helvetica, arial, sans-serif;
 }
+.hide{
+    display: none;
+}
 .save{
 	background:#2E5A7F;
 	color:#FFF;
@@ -135,6 +138,9 @@ function restore(){
 	if(localStorage['chromeLL_loadquotes'] == undefined){
 		localStorage['chromeLL_loadquotes'] = true;
 	}
+    if(localStorage['chromeLL_hlnotify'] == undefined){
+		localStorage['chromeLL_hlnotify'] = true;
+	}
 	if(localStorage['chromeLL_autodl'] == undefined){
 		localStorage['chromeLL_autodl'] = false;
 	}
@@ -176,6 +182,12 @@ function restore(){
 	}
 	else{
 		document.disable.chromeLL_ignoretopicson.checked = true;
+	}
+    if(localStorage['chromeLL_hlnotify'] == "false"){
+		document.disable.chromeLL_hlnotify.checked = false;
+	}
+	else{
+		document.disable.chromeLL_hlnotify.checked = true;
 	}
 	if(localStorage['chromeLL_page_qreply'] == "false"){
 		document.disable.chromeLL_page_qreply.checked = false;
@@ -295,9 +307,10 @@ function save(){
 	//localStorage['chromeLL_page_like'] = document.disable.chromeLL_page_like.checked;
 	//localStorage['chromeLL_page_liketxt'] = document.disable.chromeLL_page_liketxt.value;
 	localStorage['chromeLL_navi'] = document.disable.chromeLL_tchighlight.checked;
+    localStorage['chromeLL_hlnotify'] = document.disable.chromeLL_hlnotify.checked;
 	localStorage['chromeLL_page_qlinks'] = document.disable.chromeLL_page_qlinks.checked;
 	localStorage['chromeLL_shorttitle'] = document.disable.chromeLL_shorttitle.checked;
-	localStorage['chromeLL_updatereaders'] = document.disable.chromeLL_updatereaders.checked;
+	//localStorage['chromeLL_updatereaders'] = document.disable.chromeLL_updatereaders.checked;
 	localStorage['chromeLL_loadquotes'] = document.disable.chromeLL_loadquotes.checked;
 	localStorage['chromeLL_numberposts'] = document.disable.chromeLL_numberposts.checked;
 	localStorage['chromeLL_imgmaplink'] = document.disable.chromeLL_imgmaplink.checked;
@@ -316,9 +329,9 @@ function save(){
 	localStorage['chromeLL_keywordhl'] = document.disable.chromeLL_keywordhl.value + ';' + document.disable.chromeLL_keywordhlcolor.value;
 	localStorage['chromeLL_keywordhlon'] = document.disable.chromeLL_keywordhlon.checked;
 	var userhighlight = '';
-	if(document.disable.user1.value == ''){
+	if(document.disable.user1.value != undefined){
             //console.log('no user');
-			//userhighlight = document.disable.user1.value + ":" + document.disable.color1.value + ":" + document.disable.color2.value + ";";
+			userhighlight = document.disable.user1.value + ":" + document.disable.color1.value + ":" + document.disable.color2.value + ";";
 	}
 	else{
 			for(var z = 0; z < document.disable.user1.length; z++){
@@ -396,7 +409,7 @@ function qsaver(){
 	qrref(userhighlight);
 }
 function adduser(){
-	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)" disabled> <input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
+	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> <span class="hide">text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)"></span><input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
 }
 function qadduser(){
 	document.getElementsByClassName('qrlist').item(0).innerHTML += '<span class="qr_list"><textarea name="qrtext" style="width:50%; height:60px;">Reply</textarea>&nbsp;<span style="position:relative; top:-40px;"><input type="text" name="qrtitle" style="width:90px;" value="title"><input type="button" onclick="javascript:parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)" value="-"></span><br></span>';
@@ -547,7 +560,7 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <img src="/images/shorttitle.png"></td><td><input type="checkbox" name="chromeLL_shorttitle"> - Livelinks Page Title update</td></tr>
 <tr><td><img src="/images/topiclinks.png"></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Topic Quick Links</td></tr>
 <!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
-<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify" disabled> - Notify when I am quoted</span></td></tr>
+<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<span class="hide"><br><input type="checkbox" name="chromeLL_qtnotify" disabled> - Notify when I am quoted</span></span></td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore Topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
