@@ -1,0 +1,583 @@
+<html>
+<head>
+<title>ChromeLL Options</title>
+<!-- CHAIRFACE (18394) -->
+<style type="text/css">
+.line{
+	margin-top:2px;
+	background:#999;
+	width:100%;
+	height:1px;
+}
+body{
+	background:#CAD2DB;
+	font-family:helvetica, arial, sans-serif;
+}
+.save{
+	background:#2E5A7F;
+	color:#FFF;
+	font-size:30px;
+	text-align:center;
+}
+.info{
+	font-size:14px;
+	color:#666;
+}
+.saved{
+	font-size:20px;
+	text-align:center;
+}
+.small{
+	font-size:10px;
+	text-align:center;
+}
+.desc{
+	font-size:10px;
+	color:#666;
+}
+.extfeature{
+	margin-left:200px;
+	margin-top:-20px;
+}
+.userhlinfo{
+	margin-left:200px;
+	margin-top:-100px;
+	margin-bottom:50px;
+}
+.userlist{
+	margin-left:200px;
+}
+</style>
+<!--
+<script type="text/javascript" src="http://konami-js.googlecode.com/svn/trunk/konami.js"></script>
+<script type="text/javascript">
+	chair = new Konami()
+	chair.code = function() {
+		document.getElementsByClassName('small').item(0).innerHTML = '4.2.0';
+	}
+	chair.load()
+</script>-->
+<script type="text/javascript">
+function button(){
+	document.disable.savebutton.value="save";
+	document.getElementsByClassName('saved').item(0).innerHTML = "Options Saved";
+	setTimeout('clearsaved()', 2000);
+}
+function clearsaved(){
+	document.getElementsByClassName('saved').item(0).innerHTML = "";
+}
+function restore(){
+	localStorage['chromeLL_version'] = '1.2.4';
+	//console.log(localStorage['chromeLL_quicklinks']);
+	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
+	if(localStorage['chromeLL_tchighlight'] == undefined){
+		localStorage['chromeLL_tchighlight'] = true;
+		localStorage['chromeLL_tchighlightcolor'] = '#FFF000';
+	}
+	if(localStorage['chromeLL_shorttitle'] == undefined){
+		localStorage['chromeLL_shorttitle'] = true;
+	}
+	if(localStorage['chromeLL_navi'] == undefined){
+		localStorage['chromeLL_navi'] = true;
+	}
+	if(localStorage['chromeLL_keywordhl'] == undefined || localStorage['chromeLL_keywordhl'] == ';'){
+			localStorage['chromeLL_keywordhl'] = ';999';
+	}
+	if(localStorage['chromeLL_keywordhlon'] == undefined){
+				localStorage['chromeLL_keywordhlon'] = 'false';
+	}
+	/*
+	if(localStorage['chromeLL_page_like'] == undefined){
+		localStorage['chromeLL_page_like'] = 'true';
+	}
+	if(localStorage['chromeLL_page_liketxt'] == undefined){
+		localStorage['chromeLL_page_liketxt'] = '<img src="http://i4.endoftheinter.net/i/n/f818de60196ad15c888b7f2140a77744/like.png" /> %u likes %f\'s post';
+	}*/
+	if(localStorage['chromeLL_numberposts'] == undefined){
+		localStorage['chromeLL_numberposts'] = false;
+	}
+	if(localStorage['chromeLL_page_qlinks'] == undefined){
+		localStorage['chromeLL_page_qlinks'] = true;
+	}
+	if(localStorage['chromeLL_updatereaders'] == undefined){
+		localStorage['chromeLL_updatereaders'] = true;
+	}
+	if(localStorage['chromeLL_userhighlight'] == undefined || localStorage['chromeLL_userhighlight'] == ''){
+		localStorage['chromeLL_userhighlight'] = '::;';
+	}
+	if(localStorage['chromeLL_userhighlighton'] == undefined){
+		localStorage['chromeLL_userhighlighton'] = 'true';
+	}
+	if(localStorage['chromeLL_ignoretopicson'] == undefined){
+		localStorage['chromeLL_ignoretopicson'] = 'false';
+	}
+	if(localStorage['chromeLL_ignoretopics'] == undefined){
+		localStorage['chromeLL_ignoretopics'] = '';
+	}
+	if(localStorage['chromeLL_ignorelinkson'] == undefined){
+		localStorage['chromeLL_ignorelinkson'] = 'false';
+	}
+	if(localStorage['chromeLL_ignoretopicsbyon'] == undefined){
+		localStorage['chromeLL_ignoretopicsbyon'] = 'false';
+	}
+	if(localStorage['chromeLL_page_qreply'] == undefined){
+		localStorage['chromeLL_page_qreply'] = 'true';
+	}
+	if(localStorage['chromeLL_qr'] == undefined){
+		localStorage['chromeLL_qr'] = '%q <img src="http://i4.endoftheinter.net/i/n/f818de60196ad15c888b7f2140a77744/like.png" /> %u likes %f\'s post:$_QRTXTB_$:Like;$$_QREND_$$;';
+	}
+	if(localStorage['chromeLL_ignoretopicsby'] == undefined){
+		localStorage['chromeLL_ignoretopicsby'] = '';
+	}
+	if(localStorage['chromeLL_ignorelinksby'] == undefined){
+		localStorage['chromeLL_ignorelinksby'] = 'false';
+	}
+	if(localStorage['chromeLL_loadquotes'] == undefined){
+		localStorage['chromeLL_loadquotes'] = true;
+	}
+	if(localStorage['chromeLL_autodl'] == undefined){
+		localStorage['chromeLL_autodl'] = false;
+	}
+	if(localStorage['chromeLL_ctcount'] == undefined){
+		localStorage['chromeLL_ctcount'] = true;
+	}
+	if(localStorage['chromeLL_imgmaplink'] == undefined){
+		localStorage['chromeLL_imgmaplink'] = false;
+	}
+	if(localStorage['chromeLL_tchighlight'] == "false"){
+		document.disable.chromeLL_tchighlight.checked = false;
+	}
+	else{
+		document.disable.chromeLL_tchighlight.checked = true;
+	}
+	if(localStorage['chromeLL_page_qlinks'] == "false"){
+		document.disable.chromeLL_page_qlinks.checked = false;
+	}
+	else{
+		document.disable.chromeLL_page_qlinks.checked = true;
+	}
+	document.disable.chromeLL_tchighlightcolor.value = localStorage['chromeLL_tchighlightcolor'].replace('#', '');
+	document.disable.chromeLL_ignoretopics.value = localStorage['chromeLL_ignoretopics'];
+	document.disable.chromeLL_ignoretopicsby.value = localStorage['chromeLL_ignoretopicsby'];
+	if(localStorage['chromeLL_shorttitle'] == "false"){
+		document.disable.chromeLL_shorttitle.checked = false;
+	}
+	else{
+		document.disable.chromeLL_shorttitle.checked = true;
+	}
+	if(localStorage['chromeLL_ctcount'] == "false"){
+		document.disable.chromeLL_ctcount.checked = false;
+	}
+	else{
+		document.disable.chromeLL_ctcount.checked = true;
+	}
+	if(localStorage['chromeLL_ignoretopicson'] == "false"){
+		document.disable.chromeLL_ignoretopicson.checked = false;
+	}
+	else{
+		document.disable.chromeLL_ignoretopicson.checked = true;
+	}
+	if(localStorage['chromeLL_page_qreply'] == "false"){
+		document.disable.chromeLL_page_qreply.checked = false;
+	}
+	else{
+		document.disable.chromeLL_page_qreply.checked = true;
+	}
+	if(localStorage['chromeLL_ignoretopicsbyon'] == "false"){
+			document.disable.chromeLL_ignoretopicsbyon.checked = false;
+	}
+	else{
+		document.disable.chromeLL_ignoretopicsbyon.checked = true;
+	}
+	/*
+	if(localStorage['chromeLL_page_like'] == "false"){
+		document.disable.chromeLL_page_like.checked = false;
+	}
+	else{
+		document.disable.chromeLL_page_like.checked = true;
+	}*/
+	if(localStorage['chromeLL_keywordhlon'] == "false"){
+		document.disable.chromeLL_keywordhlon.checked = false;
+	}
+	else{
+		document.disable.chromeLL_keywordhlon.checked = true;
+	}
+	if(localStorage['chromeLL_autodl'] == "false"){
+		document.disable.chromeLL_autodl.checked = false;
+	}
+	else{
+		document.disable.chromeLL_autodl.checked = true;
+	}
+	if(localStorage['chromeLL_imgmaplink'] == "false"){
+		document.disable.chromeLL_imgmaplink.checked = false;
+	}
+	else{
+		document.disable.chromeLL_imgmaplink.checked = true;
+	}
+    /*
+	if(localStorage['chromeLL_beta'] == "false"){
+			document.disable.chromeLL_beta.checked = false;
+	}
+	else{
+			document.disable.chromeLL_beta.checked = true;
+	}*/
+	if(localStorage['chromeLL_navi'] == "false"){
+		document.disable.chromeLL_navi.checked = false;
+	}
+	else{
+		document.disable.chromeLL_navi.checked = true;
+	}
+	if(localStorage['chromeLL_userhighlighton'] == "false"){
+		document.disable.chromeLL_userhighlighton.checked = false;
+	}
+	else{
+		document.disable.chromeLL_userhighlighton.checked = true;
+	}
+	if(localStorage['chromeLL_updatereaders'] == "false"){
+		document.disable.chromeLL_updatereaders.checked = false;
+	}
+	else{
+		document.disable.chromeLL_updatereaders.checked = true;
+	}
+	if(localStorage['chromeLL_loadquotes'] == "false"){
+		document.disable.chromeLL_loadquotes.checked = false;
+	}
+	else{
+		document.disable.chromeLL_loadquotes.checked = true;
+	}
+	if(localStorage['chromeLL_numberposts'] == "false"){
+		document.disable.chromeLL_numberposts.checked = false;
+	}
+	else{
+		document.disable.chromeLL_numberposts.checked = true;
+	}
+	var over = localStorage['chromeLL_userhighlight'].split(';');
+	var users = new Array();
+	var colors = new Array();
+	var textc = new Array();
+	for(var q = 0; over[q]; q++){
+		users[q] = over[q].split(':')[0].toLowerCase();
+		colors[q] = over[q].split(':')[1].toLowerCase();
+		try{
+			textc[q] = over[q].split(':')[2].toLowerCase();
+		}catch(e){
+			textc[q] = '';
+		}
+	}
+	for(var r = 0; r < users.length; r++){
+		adduser();
+	}
+	userhl();
+	qrres();
+	var keywordhl = localStorage['chromeLL_keywordhl'].split(';');
+	document.disable.chromeLL_keywordhl.value = keywordhl[0];
+	document.disable.chromeLL_keywordhlcolor.value = keywordhl[1];
+	//document.disable.chromeLL_page_liketxt.value = localStorage['chromeLL_page_liketxt'];
+	document.getElementsByClassName('small').item(0).innerHTML = localStorage['chromeLL_version'];
+	/*
+	if(document.disable.user1.value == ''){
+		document.disable.user1.value = users[0];
+		document.disable.color1.value = colors[0];
+		console.log(users[0] + " color:" + colors[0]);
+	}
+	else{
+		for(var y = 0; y < users.length; y++){
+			document.disable.user1.item(y).value = users[y];
+			document.disable.color1.item(y).value = colors[y];
+		}
+	}*/
+    setNotify();
+}
+function save(){
+	localStorage['chromeLL_quicklinks'] = document.disable.quicklinks.value;
+	localStorage['chromeLL_tchighlight'] = document.disable.chromeLL_tchighlight.checked;
+	//localStorage['chromeLL_page_like'] = document.disable.chromeLL_page_like.checked;
+	//localStorage['chromeLL_page_liketxt'] = document.disable.chromeLL_page_liketxt.value;
+	localStorage['chromeLL_navi'] = document.disable.chromeLL_tchighlight.checked;
+	localStorage['chromeLL_page_qlinks'] = document.disable.chromeLL_page_qlinks.checked;
+	localStorage['chromeLL_shorttitle'] = document.disable.chromeLL_shorttitle.checked;
+	localStorage['chromeLL_updatereaders'] = document.disable.chromeLL_updatereaders.checked;
+	localStorage['chromeLL_loadquotes'] = document.disable.chromeLL_loadquotes.checked;
+	localStorage['chromeLL_numberposts'] = document.disable.chromeLL_numberposts.checked;
+	localStorage['chromeLL_imgmaplink'] = document.disable.chromeLL_imgmaplink.checked;
+	localStorage['chromeLL_autodl'] = document.disable.chromeLL_autodl.checked;
+	localStorage['chromeLL_ctcount'] = document.disable.chromeLL_ctcount.checked;
+	//localStorage['chromeLL_beta'] = document.disable.chromeLL_beta.checked;
+	localStorage['chromeLL_page_qreply'] = document.disable.chromeLL_page_qreply.checked;
+	localStorage['chromeLL_tchighlightcolor'] = '#' + document.disable.chromeLL_tchighlightcolor.value;
+	localStorage['chromeLL_userhighlighton'] = document.disable.chromeLL_userhighlighton.checked;
+	localStorage['chromeLL_ignoretopicson'] = document.disable.chromeLL_ignoretopicson.checked;
+	//localStorage['chromeLL_ignorelinkson'] = document.disable.chromeLL_ignorelinkson.checked;
+	localStorage['chromeLL_ignoretopicsbyon'] = document.disable.chromeLL_ignoretopicsbyon.checked;
+	//localStorage['chromeLL_ignorelinksby'] = document.disable.chromeLL_ignorelinksby.checked;
+	localStorage['chromeLL_ignoretopics'] = document.disable.chromeLL_ignoretopics.value;
+	localStorage['chromeLL_ignoretopicsby'] = document.disable.chromeLL_ignoretopicsby.value;
+	localStorage['chromeLL_keywordhl'] = document.disable.chromeLL_keywordhl.value + ';' + document.disable.chromeLL_keywordhlcolor.value;
+	localStorage['chromeLL_keywordhlon'] = document.disable.chromeLL_keywordhlon.checked;
+	var userhighlight = '';
+	if(document.disable.user1.value == ''){
+            //console.log('no user');
+			//userhighlight = document.disable.user1.value + ":" + document.disable.color1.value + ":" + document.disable.color2.value + ";";
+	}
+	else{
+			for(var z = 0; z < document.disable.user1.length; z++){
+				if(document.disable.user1.item(z).value != ''){
+					userhighlight += document.disable.user1.item(z).value + ":" + document.disable.color1.item(z).value + ":" + document.disable.color2.item(z).value + ";";
+				}
+			}
+	}
+	var qr = '';
+	if(document.disable.qrtext != undefined){
+		if(document.disable.qrtext.value){
+				qr = document.disable.qrtext.value + ":$_QRTXTB_$:" + document.disable.qrtitle.value + ";$$_QREND_$$;";
+				//console.log(qr);
+		}
+		else{
+				for(var z = 0; z < document.disable.qrtext.length; z++){
+					if(document.disable.qrtitle.item(z).value != '' && document.disable.qrtitle.item(z).value != 'title'){
+						qr += document.disable.qrtext.item(z).value + ":$_QRTXTB_$:" + document.disable.qrtitle.item(z).value + ";$$_QREND_$$;";
+					}
+				}
+		}
+	}
+	localStorage['chromeLL_userhighlight'] = userhighlight;
+	localStorage['chromeLL_qr'] = qr;
+	document.disable.savebutton.value="- - - saving - - -";
+	setTimeout('button()', 200);
+}
+function restoreql(){
+	if(document.disable.presets.value == "default"){
+		document.disable.quicklinks.value = '<a href="http://boards.endoftheinter.net/showtopics.php?board=42" target="_new">LUE</a> | <a href="http://boards.endoftheinter.net/showtopics.php?board=51" target="_new">PM</a> | <a href="http://boards.endoftheinter.net/showtopics.php?board=58" target="_new">MH</a> | <a href="http://boards.endoftheinter.net/showtopics.php?board=444" target="_new">HA</a>';
+	}
+	if(document.disable.presets.value == "luesearch"){
+		document.disable.quicklinks.value = '<form action="http://boards.endoftheinter.net/search.php" method="get" target="_new"><input type="text" name="s_aw"><input type="hidden" name="board" value="42"><input type="hidden" name="submit" value="Submit"></form>';
+	}
+	if(document.disable.presets.value == "archives"){
+		document.disable.quicklinks.value = '<form method="get" action="http://archives.endoftheinter.net/search.php" target="_new"><input type="hidden" name="board" value="42" /><input type="text" name="s_aw" /><input type="hidden" value="Search" name="submit" /></form>';
+	}
+}
+function qsave(){
+	var userhighlight = '';
+	if(document.disable.color1 == undefined){
+			adduser();
+			break;
+	}
+	if(document.disable.user1.value){
+			userhighlight = document.disable.user1.value + ":" + document.disable.color1.value + ":" + document.disable.color2.value + ";";
+	}
+	else{
+			for(var z = 0; z < document.disable.user1.length; z++){
+				if(document.disable.user1.item(z).value != ''){
+					userhighlight += document.disable.user1.item(z).value + ":" + document.disable.color1.item(z).value + ":" + document.disable.color2.value + ";";
+				}
+			}
+	}
+	adduser();
+	userhl2(userhighlight);
+}
+function qsaver(){
+	var userhighlight = '';
+	if(document.disable.qrtext == undefined){
+		qadduser();
+		break;
+	}
+	if(document.disable.qrtext.value){
+			userhighlight = document.disable.qrtext.value + ":$_QRTXTB_$:" + document.disable.qrtitle.value + ";$$_QREND_$$;";
+	}
+	else{
+			for(var z = 0; z < document.disable.qrtext.length; z++){
+				if(document.disable.qrtext.item(z).value != ''){
+					userhighlight += document.disable.qrtext.item(z).value + ":$_QRTXTB_$:" + document.disable.qrtitle.item(z).value + ";$$_QREND_$$;";
+				}
+			}
+	}
+	qadduser();
+	qrref(userhighlight);
+}
+function adduser(){
+	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)"> <input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
+}
+function qadduser(){
+	document.getElementsByClassName('qrlist').item(0).innerHTML += '<span class="qr_list"><textarea name="qrtext" style="width:50%; height:60px;">Reply</textarea>&nbsp;<span style="position:relative; top:-40px;"><input type="text" name="qrtitle" style="width:90px;" value="title"><input type="button" onclick="javascript:parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)" value="-"></span><br></span>';
+}
+function uhcolor(obj){
+	obj.style.background = "#" + obj.value;
+}
+function userhl(){
+	var over2 = localStorage['chromeLL_userhighlight'].split(';');
+		var users2 = new Array();
+		var colors2 = new Array();
+		var textc2 = new Array();
+		for(var q2 = 0; over2[q2]; q2++){
+				users2[q2] = over2[q2].split(':')[0].toLowerCase();
+				colors2[q2] = over2[q2].split(':')[1].toLowerCase();
+				try{
+					textc2[q2] = over2[q2].split(':')[2].toLowerCase();
+				}catch(e){
+					textc2[q2] = '';
+				}
+		}
+		//console.log(users2);
+		if(document.disable.user1.value == ''){
+				document.disable.user1.value = users2[0];
+				document.disable.color1.value = colors2[0];
+				document.disable.color2.value = textc2[0];
+				uhcolor(document.disable.color1);
+				uhcolor(document.disable.color2);
+				//console.log(users2[0] + " color:" + colors2[0]);
+		}
+		else{
+			for(y = 0; y < users2.length; y++){
+				document.disable.user1.item(y).value = users2[y];
+				document.disable.color1.item(y).value = colors2[y];
+				document.disable.color2.item(y).value = textc2[y];
+				uhcolor(document.disable.color1.item(y));
+				uhcolor(document.disable.color2.item(y));
+				//console.log(users2[y] + " - " + colors2[y]);
+			}
+		}
+}
+function qrres(){
+	var over2 = localStorage['chromeLL_qr'].split(';$$_QREND_$$;');
+	var users2 = new Array();
+	var colors2 = new Array();
+	for(var q2 = 0; over2[q2]; q2++){
+			users2[q2] = over2[q2].split(':$_QRTXTB_$:')[0];
+			colors2[q2] = over2[q2].split(':$_QRTXTB_$:')[1];
+	}
+	for(var r = 0; r < colors2.length; r++){
+			qadduser();
+	}
+	//console.log(users2);
+	if(document.disable.qrtext.value){
+			document.disable.qrtext.value = users2[0];
+			document.disable.qrtitle.value = colors2[0];
+			//console.log(users2[0] + " color:" + colors2[0]);
+	}
+	else{
+		for(y = 0; y < users2.length; y++){
+			document.disable.qrtext.item(y).value = users2[y];
+			document.disable.qrtitle.item(y).value = colors2[y];
+			//console.log(users2[y] + " - " + colors2[y]);
+		}
+	}
+}
+function userhl2(ref){
+	var over2 = ref.split(';');
+	var users2 = new Array();
+	var colors2 = new Array();
+	for(var q2 = 0; over2[q2]; q2++){
+			users2[q2] = over2[q2].split(':')[0].toLowerCase();
+			colors2[q2] = over2[q2].split(':')[1].toLowerCase();
+	}
+	//console.log(users2);
+	if(document.disable.user1.value == ''){
+			document.disable.user1.value = users2[0];
+			document.disable.color1.value = colors2[0];
+			uhcolor(document.disable.color1);
+			//console.log(users2[0] + " color:" + colors2[0]);
+	}
+	else{
+		for(y = 0; y < users2.length; y++){
+			document.disable.user1.item(y).value = users2[y];
+			document.disable.color1.item(y).value = colors2[y];
+			uhcolor(document.disable.color1.item(y));
+			//console.log(users2[y] + " - " + colors2[y]);
+		}
+	}
+}
+function qrref(ref){
+	var over2 = ref.split(';$$_QREND_$$;');
+	var users2 = new Array();
+	var colors2 = new Array();
+	for(var q2 = 0; over2[q2]; q2++){
+			users2[q2] = over2[q2].split(':$_QRTXTB_$:')[0];
+			colors2[q2] = over2[q2].split(':$_QRTXTB_$:')[1];
+	}
+	//console.log(users2);
+	if(document.disable.qrtext.value == ''){
+			document.disable.qrtext.value = users2[0];
+			document.disable.qrtitle.value = colors2[0];
+			//console.log(users2[0] + " color:" + colors2[0]);
+	}
+	else{
+		for(y = 0; y < users2.length; y++){
+			document.disable.qrtext.item(y).value = users2[y];
+			document.disable.qrtitle.item(y).value = colors2[y];
+			//console.log(users2[y] + " - " + colors2[y]);
+		}
+	}
+}
+function toggleNotify(){
+    if(localStorage['chromeLL_notify'] == 'true'){
+        localStorage['chromeLL_notify'] = 'false';
+    }else{
+        localStorage['chromeLL_notify'] = 'true';
+    }
+}
+function setNotify(){
+    if(localStorage['chromeLL_notify'] == 'true'){
+        document.getElementById('notification').style.display = 'block';
+        document.disable.chromeLL_notify.checked = true;
+        document.disable.chromeLL_hlnotify.disabled = false;
+        document.disable.chromeLL_qtnotify.disabled = false;
+    }else{
+        document.getElementById('notification').style.display = 'none';
+        document.disable.chromeLL_hlnotify.disabled = true;
+        document.disable.chromeLL_qtnotify.disabled = true;
+    }
+}
+</script>
+</head>
+<body onLoad="restore();">
+<form name="disable">
+<div class="save">ChromeLL Options</div>
+<div class="line"></div><div class="line"></div>
+<div class="info">popup settings:</div>
+Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><select name="presets"><option value="default">Default</option>
+<option value="luesearch">LUE search</option>
+<option value="archives">Archive search</option>
+</select>
+<input type="button" value="load" onClick="restoreql()"><br>
+<div class="line"></div><div class="line"></div>
+<div class="info">extension features:</div>
+<table>
+<tr><td>
+<img src="/images/shorttitle.png"></td><td><input type="checkbox" name="chromeLL_shorttitle"> - Livelinks Page Title update</td></tr>
+<tr><td><img src="/images/topiclinks.png"></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Topic Quick Links</td></tr>
+<!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
+<tr><td><img src="/images/notification2.png"></td><td><input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chromeLL_hlnotify" disabled> - When highlighted user posts<br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chromeLL_qtnotify" disabled> - When I am quoted</span></td></tr>
+</table>
+<div class="line"><table>
+<tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore Topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_keywordhlon"> - Highlight Topics containing words:</td><td><input type="text" name="chromeLL_keywordhl" style="width: 400px;"> (separate with commas) </td><td>color: #<input type="text" name="chromeLL_keywordhlcolor" onKeyUp="uhcolor(this)"></td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_ignoretopicsbyon"> - Ignore Topics/Posts created by:</td><td><input type="text" name="chromeLL_ignoretopicsby" style="width: 400px;"> (separate with commas)</td></tr>
+</table>
+<div class="line"></div><table>
+<tr><td><img src="/images/tchl.png"></td><td>
+<input type="checkbox" name="chromeLL_tchighlight"> - Highlight TC</td><td>color: #<input type="text" name="chromeLL_tchighlightcolor" onKeyUp="uhcolor(this)"></td></tr><tr><td>
+<tr><td><img src="/images/userhl.png"></td><td>
+<input type="checkbox" name="chromeLL_userhighlighton"> - Highlight Users</td> <td><input type="button" onClick="qsave()" value="+"></td></tr></table>
+<div class="info" style="color:#000; margin-left:200px;">(note: blank usernames will be removed, usernames are not case sensitive)</div>
+<div class="userlist"></div><div class="line"></div><table>
+<tr><td><img src="/images/qr.png"></td><td><input type="checkbox" name="chromeLL_page_qreply"> - Quick Reply <input type="button" onClick="qsaver()" value="+"></td></tr>
+<tr><td></td><td><div class="info" style="color:#000;">(%q = quoted message (will always appear at top), %f = other user's username, %i = other user's userid)</div></td></tr></table>
+<div class="qrlist" style="margin-left:200px"></div>
+<div class="line"></div><div class="line"></div>
+<div class="info">userscripts:</div>
+<input type="checkbox" name="chromeLL_updatereaders"> - Auto-update Topic Readers (by <a href="http://endoftheinter.net/profile.php?user=11160">l0tics</a>)<br>
+<input type="checkbox" name="chromeLL_loadquotes"> - Load Quotes on Click (by <a href="http://endoftheinter.net/profile.php?user=10295">headbanger</a>)<br>
+<input type="checkbox" name="chromeLL_numberposts"> - Number Posts (by <a href="http://endoftheinter.net/profile.php?user=11503">pendevin</a>)<br>
+<input type="checkbox" name="chromeLL_ctcount"> - CT Count (by <a href="http://endoftheinter.net/profile.php?user=5563">citizenray</a>/<a href="http://endoftheinter.net/profile.php?user=2377">Psyduck</a>)<br>
+<input type="checkbox" name="chromeLL_imgmaplink"> - Imagemap on Infobar (by <a href="http://endoftheinter.net/profile.php?user=11503">pendevin</a>)<br>
+<input type="checkbox" name="chromeLL_navi" style="visibility: hidden"><!-- - Navi (by <a href="http://endoftheinter.net/profile.php?user=11503">pendevin</a>)<br>-->
+<div class="line"></div><div class="line"></div>
+<div class="info">megaupload:</div>
+<input type="checkbox" name="chromeLL_autodl"> - Auto-start Megaupload Downloads<br>
+<div class="save"><center><input type="button" value="save" onClick="save();" name="savebutton" style="width:80%; text-align:center; height:30px; font-size:20px;"></center></div>
+<div class="saved"></div>
+<center><a href="http://endoftheinter.net/postmsg.php?puser=18394">report a bug</a></center>
+<div class="small"></div>
+</form>
+</body>
+</html>

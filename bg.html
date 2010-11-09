@@ -1,0 +1,51 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script type="text/javascript">
+chrome.extension.onRequest.addListener(
+  function(request, sender, sendResponse) {
+    //console.log(sender.tab ?
+    //            "from a content script:" + sender.tab.url :
+    //            "from the extension");
+      if(request.need.split(':').indexOf('userid') == 0){
+      		//console.log(request.need);
+      		//console.log(localStorage['chromeLL_extra']);
+      		sendResponse({data: "userid-"});
+      }
+      else if(request.need == "notify"){
+            var notification = webkitNotifications.createNotification(
+            'images/ll.png',
+            request.title,
+            request.message);
+            notification.show();
+        }
+      else if(request.need == "cfapi"){
+      		if(request.action == "update"){
+			$.post("http://chat.chairface.org/api/1/?api=update", { chat_cid: request.cookie }, function(req){
+				sendResponse({data: req});
+			});
+		}
+		if(request.action == "list"){
+			$.get("http://chat.chairface.org/api/1/?api=userlist", function(req){
+				sendResponse({data: req});
+			});
+		}
+		if(request.action == "send"){
+			$.post("http://chat.chairface.org/api/1/?api=send", { to: request.to, msg: request.message }, function(req){
+				sendResponse({data: "posted"});
+			});
+		}
+		if(request.action == "get"){
+			$.get("http://chat.chairface.org/api/1/?api=getmsg", function(req){
+				sendResponse({data: req});
+			});
+		}
+      }
+      else{
+      	sendResponse({data: localStorage[request.need]});
+      	console.log("resp");
+      }
+  });
+</script>
+</head>
+</html>
