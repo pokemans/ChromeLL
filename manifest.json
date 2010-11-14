@@ -1,10 +1,10 @@
 {
   "name": "ChromeLL",
-  "version": "1.2.4",
+  "version": "1.2.6.0",
   "update_url": "http://www.chairface.org/ext/updates.xml",
   "description": "Some helpful LL features",
   "options_page": "options.html",
-  "minimum_chrome_version": "3.0.193.0",
+  "minimum_chrome_version": "5.0.193.0",
   "icons": {
   	"16": "images/ll.png"},
   "background_page": "bg.html",

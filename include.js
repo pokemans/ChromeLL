@@ -25,6 +25,11 @@ function topicnotifier(){
             document.getElementById('chromeLL_watch').innerHTML = "Unwatch";
             document.addEventListener('DOMNodeInserted', notifywatch, false);
         }
+        var headID = document.getElementsByTagName("head")[0];         
+	var newScript = document.createElement('script');
+	newScript.type = 'text/javascript';
+	newScript.src = chrome.extension.getURL('watcher.js');
+	headID.appendChild(newScript);
     }	
 }
 topicnotifier();
@@ -65,6 +70,15 @@ function notify(e, dtitle){
             });
         }
     });
+    chrome.extension.sendRequest({need: "chromeLL_qtnotify"}, function(response) {
+        if(response.data == 'true'){
+            try{
+                var el = e.target.getElementsByClassName("quoted-message");
+                qnotify(dtitle, el);
+            }catch(e){
+            }
+        }
+    });
 }
 function enotifywatch(t, m){
 	t = t.replace(/End of the Internet - /i, '');
@@ -90,6 +104,18 @@ function enotify(t, m, data){
 			});
 		}
 	}
+}
+function qnotify(t, el){
+    t = t.replace(/End of the Internet - /i, '');
+    try{
+        for(var i = 0; el[i].getElementsByClassName('message-top')[0]; i++){
+            if(el[i].getElementsByClassName('message-top')[0].getElementsByTagName('a')[0].innerHTML == document.getElementsByClassName('userbar')[0].getElementsByTagName('a')[0].innerHTML.replace(/ \((.*)\)$/, "")){
+                chrome.extension.sendRequest({need: "notify", title: "You\'ve been quoted!", message: t}, function(response) {
+				// empty
+                });
+            }
+        }
+    }catch(e){}
 }
 function readCookie(name)
 {

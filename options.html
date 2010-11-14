@@ -70,7 +70,7 @@ function clearsaved(){
 	document.getElementsByClassName('saved').item(0).innerHTML = "";
 }
 function restore(){
-	localStorage['chromeLL_version'] = '1.2.4';
+	localStorage['chromeLL_version'] = '1.2.6.0';
 	//console.log(localStorage['chromeLL_quicklinks']);
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){
@@ -141,6 +141,9 @@ function restore(){
     if(localStorage['chromeLL_hlnotify'] == undefined){
 		localStorage['chromeLL_hlnotify'] = true;
 	}
+    if(localStorage['chromeLL_qtnotify'] == undefined){
+		localStorage['chromeLL_qtnotify'] = true;
+	}
 	if(localStorage['chromeLL_autodl'] == undefined){
 		localStorage['chromeLL_autodl'] = false;
 	}
@@ -188,6 +191,12 @@ function restore(){
 	}
 	else{
 		document.disable.chromeLL_hlnotify.checked = true;
+	}
+    if(localStorage['chromeLL_qtnotify'] == "false"){
+		document.disable.chromeLL_qtnotify.checked = false;
+	}
+	else{
+		document.disable.chromeLL_qtnotify.checked = true;
 	}
 	if(localStorage['chromeLL_page_qreply'] == "false"){
 		document.disable.chromeLL_page_qreply.checked = false;
@@ -308,6 +317,7 @@ function save(){
 	//localStorage['chromeLL_page_liketxt'] = document.disable.chromeLL_page_liketxt.value;
 	localStorage['chromeLL_navi'] = document.disable.chromeLL_tchighlight.checked;
     localStorage['chromeLL_hlnotify'] = document.disable.chromeLL_hlnotify.checked;
+    localStorage['chromeLL_qtnotify'] = document.disable.chromeLL_qtnotify.checked;
 	localStorage['chromeLL_page_qlinks'] = document.disable.chromeLL_page_qlinks.checked;
 	localStorage['chromeLL_shorttitle'] = document.disable.chromeLL_shorttitle.checked;
 	//localStorage['chromeLL_updatereaders'] = document.disable.chromeLL_updatereaders.checked;
@@ -560,7 +570,7 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <img src="/images/shorttitle.png"></td><td><input type="checkbox" name="chromeLL_shorttitle"> - Livelinks Page Title update</td></tr>
 <tr><td><img src="/images/topiclinks.png"></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Topic Quick Links</td></tr>
 <!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
-<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<span class="hide"><br><input type="checkbox" name="chromeLL_qtnotify" disabled> - Notify when I am quoted</span></span></td></tr>
+<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted</span></td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore Topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
