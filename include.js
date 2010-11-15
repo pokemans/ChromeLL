@@ -14,15 +14,6 @@ function shorten(){
 	document.addEventListener('mousemove', clrupdates, false);
     //document.addEventListener('mousedown', mouseHandler, false);
 }
-function mouseHandler(e){
-    if(e.shiftKey && !e.altKey){
-        hluser(e.toElement.firstChild);
-    }if(e.metaKey){
-        console.log(e); 
-    }if(e.shiftKey && e.altKey){
-        addrmtc(e.toElement.firstChild);
-    }
-}
 function topicnotifier(){
     if(window.location.href.indexOf('showmessages') != -1){
         document.getElementsByClassName('userbar')[0].innerHTML += ' | <a href="##" id="chromeLL_watch" onclick="toggleWatch(window.location.href)">Watch</a>';
