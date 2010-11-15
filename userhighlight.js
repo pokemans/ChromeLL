@@ -61,22 +61,19 @@ if(w.indexOf("showtopics") != -1){
 }
 if(w.indexOf("showmessages") != -1){
     try{
-	var s = document.getElementsByClassName('message-top');
+	var s = document.getElementsByClassName('message-container');
 	var tc = '';
 	for(var i = 0; s.item(i); i++){
-		tc = s.item(i).getElementsByTagName('a').item(0).innerHTML.toLowerCase();
-		if(userstring.indexOf(tc) != -1){
-					for(var e = 0; users[e]; e++){
-						if(users[e] == tc){
-							index = e;
-							//console.log("found tc to highlight: " + e);
-						}
-					}
-					s.item(i).style.background = "#" + colors[index];
-					//document.getElementsByClassName('message')[i].style.color = '#' + textc[index];
-					//console.log("userhl: " + s.item(i).parentNode);
-					//console.log("highlighing user \"" + tc + "\" color " + colors[index]);
+		tc = s.item(i).getElementsByClassName('message-top')[0].getElementsByTagName('a').item(0).innerHTML.toLowerCase();
+		for(var e = 0; users[e]; e++){
+			if(users[e] == tc){
+				s[i].getElementsByClassName('message-top')[0].style.background = "#" + colors[e];
+				s[i].getElementsByClassName('message-body')[0].style.color = "#" + textc[e];
+				//console.log("found tc to highlight: " + e);
+			}
 		}
+		//s.item(i).style.background = "#" + colors[index];
+		//document.getElementsByClassName('message')[i].style.color = '#' + textc[index];
 		//console.log("(topic) " + i + " - " + tc);
 	}
     }catch(e){console.log('userhl died ' + e);}

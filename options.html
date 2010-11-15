@@ -16,6 +16,12 @@ body{
 .hide{
     display: none;
 }
+.towel{
+    position: fixed;
+    z-index:-9;
+    bottom: 0;
+    right: 0;
+}
 .save{
 	background:#2E5A7F;
 	color:#FFF;
@@ -51,16 +57,14 @@ body{
 	margin-left:200px;
 }
 </style>
-<!--
-<script type="text/javascript" src="http://konami-js.googlecode.com/svn/trunk/konami.js"></script>
 <script type="text/javascript">
-	chair = new Konami()
-	chair.code = function() {
-		document.getElementsByClassName('small').item(0).innerHTML = '4.2.0';
+function today(){
+	var j = new Date();
+	if(j.getMonth() == '3' && j.getDate() == '20'){
+		document.getElementsByClassName('small')[0].innerHTML = '4.2.0 =)';
+        document.getElementsByClassName('towel')[0].innerHTML = 'You wanna get high?<br><img src="' + chrome.extension.getURL('images/towelie.png') + '">';
 	}
-	chair.load()
-</script>-->
-<script type="text/javascript">
+}
 function button(){
 	document.disable.savebutton.value="save";
 	document.getElementsByClassName('saved').item(0).innerHTML = "Options Saved";
@@ -70,7 +74,7 @@ function clearsaved(){
 	document.getElementsByClassName('saved').item(0).innerHTML = "";
 }
 function restore(){
-	localStorage['chromeLL_version'] = '1.2.6.0';
+	localStorage['chromeLL_version'] = '1.2.6.3';
 	//console.log(localStorage['chromeLL_quicklinks']);
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){
@@ -392,10 +396,11 @@ function qsave(){
 	else{
 			for(var z = 0; z < document.disable.user1.length; z++){
 				if(document.disable.user1.item(z).value != ''){
-					userhighlight += document.disable.user1.item(z).value + ":" + document.disable.color1.item(z).value + ":" + document.disable.color2.value + ";";
+					userhighlight += document.disable.user1[z].value + ":" + document.disable.color1[z].value + ":" + document.disable.color2[z].value + ";";
 				}
 			}
 	}
+	console.log(userhighlight);
 	adduser();
 	userhl2(userhighlight);
 }
@@ -419,7 +424,7 @@ function qsaver(){
 	qrref(userhighlight);
 }
 function adduser(){
-	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> <span class="hide">text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)"></span><input type="button" onclick="javascript:parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
+	document.getElementsByClassName('userlist').item(0).innerHTML += '<span class="userhl_list">username: <input type="text" name="user1" style="width:50%;"> color: #<input type="text" name="color1" style="width:60px;" onkeyup="uhcolor(this)"> text color: #<input type="text" name="color2" style="width:60px;" onkeyup="uhcolor(this)"><input type="button" onclick="parentNode.parentNode.removeChild(this.parentNode)" value="-"><br></span>';
 }
 function qadduser(){
 	document.getElementsByClassName('qrlist').item(0).innerHTML += '<span class="qr_list"><textarea name="qrtext" style="width:50%; height:60px;">Reply</textarea>&nbsp;<span style="position:relative; top:-40px;"><input type="text" name="qrtitle" style="width:90px;" value="title"><input type="button" onclick="javascript:parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)" value="-"></span><br></span>';
@@ -490,22 +495,28 @@ function userhl2(ref){
 	var over2 = ref.split(';');
 	var users2 = new Array();
 	var colors2 = new Array();
+	var tcolors2 = new Array();
 	for(var q2 = 0; over2[q2]; q2++){
 			users2[q2] = over2[q2].split(':')[0].toLowerCase();
 			colors2[q2] = over2[q2].split(':')[1].toLowerCase();
+			tcolors2[q2] = over2[q2].split(':')[2].toLowerCase();
 	}
 	//console.log(users2);
 	if(document.disable.user1.value == ''){
 			document.disable.user1.value = users2[0];
 			document.disable.color1.value = colors2[0];
+			document.disable.color2.value = tcolors2[0];
 			uhcolor(document.disable.color1);
+			uhcolor(document.disable.color2);
 			//console.log(users2[0] + " color:" + colors2[0]);
 	}
 	else{
 		for(y = 0; y < users2.length; y++){
 			document.disable.user1.item(y).value = users2[y];
 			document.disable.color1.item(y).value = colors2[y];
+			document.disable.color2.item(y).value = tcolors2[y];
 			uhcolor(document.disable.color1.item(y));
+			uhcolor(document.disable.color2.item(y));
 			//console.log(users2[y] + " - " + colors2[y]);
 		}
 	}
@@ -553,7 +564,7 @@ function setNotify(){
 }
 </script>
 </head>
-<body onLoad="restore();">
+<body onLoad="restore(); today();">
 <form name="disable">
 <div class="save">ChromeLL Options</div>
 <div class="line"></div><div class="line"></div>
@@ -602,6 +613,7 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <div class="saved"></div>
 <center><a href="http://endoftheinter.net/postmsg.php?puser=18394">report a bug</a></center>
 <div class="small"></div>
+<span class="towel"></span>
 </form>
 </body>
 </html>
