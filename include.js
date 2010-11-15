@@ -12,6 +12,16 @@ function shorten(){
 	document.title = document.title.replace(/End of the Internet - /i, '');
 	document.addEventListener('DOMNodeInserted', updateposts, false);
 	document.addEventListener('mousemove', clrupdates, false);
+    //document.addEventListener('mousedown', mouseHandler, false);
+}
+function mouseHandler(e){
+    if(e.shiftKey && !e.altKey){
+        hluser(e.toElement.firstChild);
+    }if(e.metaKey){
+        console.log(e); 
+    }if(e.shiftKey && e.altKey){
+        addrmtc(e.toElement.firstChild);
+    }
 }
 function topicnotifier(){
     if(window.location.href.indexOf('showmessages') != -1){
@@ -51,13 +61,14 @@ function updateposts(e){
 		}
 	}
 }
+
 function notifywatch(e){
     try{
         if(e.target.getElementsByClassName("message-top").item(0) != null){
             var by = e.target.getElementsByClassName("message-top")[0].getElementsByTagName('a')[0].innerHTML;
             enotifywatch(document.title, by);
         }
-    }catch(e){
+    }catch(err){
         //lol
     }
 }
@@ -75,7 +86,7 @@ function notify(e, dtitle){
             try{
                 var el = e.target.getElementsByClassName("quoted-message");
                 qnotify(dtitle, el);
-            }catch(e){
+            }catch(err){
             }
         }
     });
@@ -149,12 +160,6 @@ function definels(){
 	}
 }
 //console.log(chrome.extension.getURL('ignoreby.js'));
-chrome.extension.sendRequest({need: "chromeLL_page_qlinks"}, function(response) {
-  if(response.data == "true" || response.data == undefined){
-  	//console.log(response.data);
-  	insjs();
-  	}
-});
 /*
 chrome.extension.sendRequest({need: "chromeLL_page_like"}, function(response) {
    if(response.data == "true"){
@@ -185,7 +190,8 @@ function insjs(){
 	headID.appendChild(newScript);
 	if(window.location.href.indexOf('showtopics') != -1){
 		for(var i = 1; document.getElementsByTagName('tr').item(i); i++){
-			m = document.getElementsByTagName('tr').item(i).getElementsByTagName('td').item(0)
+			m = document.getElementsByTagName('tr').item(i).getElementsByTagName('td').item(0);
+            m.addEventListener('mousedown', mouseHandler, false);
 			g = m.getElementsByTagName('a').item(0).href;
 			//console.log(g);
 			topic = g.substring(g.indexOf("topic") + 6, g.indexOf("topic") + 13);

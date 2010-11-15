@@ -1,6 +1,6 @@
 {
   "name": "ChromeLL",
-  "version": "1.2.6.2",
+  "version": "1.2.7.0",
   "update_url": "http://www.chairface.org/ext/updates.xml",
   "description": "Some helpful LL features",
   "options_page": "options.html",
@@ -11,7 +11,7 @@
  "content_scripts": [
     {
       "matches": ["http://boards.endoftheinter.net/*", "http://archives.endoftheinter.net/*", "https://boards.endoftheinter.net/*", "https://archives.endoftheinter.net/*"],
-      "js": ["jquery.js", "loadquotes.js", "tchighlight.js", "include.js", "postnum.js", "imagemap.js", "userhighlight.js", "keywordhl.js"]
+      "js": ["jquery.js", "loadquotes.js", "tchighlight.js", "include.js", "topicqlinks.js", "postnum.js", "imagemap.js", "userhighlight.js", "keywordhl.js"]
     },
     {
        "matches": ["http://boards.endoftheinter.net/*", "https://boards.endoftheinter.net/*"],
