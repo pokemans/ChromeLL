@@ -15,11 +15,33 @@ function init(){
 }
 function mouseHandler(e){
     if(!e.shiftKey && e.altKey){
-        hluser(e.toElement.firstChild);
+        if(e.toElement.cellIndex == 0){
+            hluser(e.toElement.firstChild);
+        }if(e.toElement.cellIndex == 1){
+            chrome.extension.sendRequest({need: "topic_userhl", user: e.toElement.innerText, color: rcolor(), rm: 'false'}, function(response){
+            });
+            userhl_init();
+        }if(e.toElement.cellIndex == 2){
+            pg = prompt("","Page Number");
+            if(pg == undefined || pg == "Page Number"){
+                return 0;
+            }
+            window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + pg;
+        }
     }if(e.metaKey){
         console.log(e); 
     }if(e.shiftKey && e.altKey){
-        addrmtc(e.toElement.firstChild);
+        if(e.toElement.cellIndex == 0){
+            addrmtc(e.toElement.firstChild);
+        }if(e.toElement.cellIndex == 1){
+            chrome.extension.sendRequest({need: "topic_userhl", user: e.toElement.innerText, color: '', rm: 'true'}, function(response){
+            });
+            for(var i = 0; e.toElement.parentNode.getElementsByTagName('td')[i]; i++){
+                e.toElement.parentNode.getElementsByTagName('td')[i].style.background = '';
+            }
+        }if(e.toElement.cellIndex == 2){
+            window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + Math.ceil(e.toElement.innerHTML.split('<')[0] / 50);
+        }
     }
 }
 function hluser(element){

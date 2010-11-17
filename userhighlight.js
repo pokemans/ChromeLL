@@ -1,11 +1,14 @@
 chrome.extension.sendRequest({need: "chromeLL_userhighlighton"}, function(response) {
   if(response.data == "true"){
   //document.addEventListener('DOMNodeInserted', reupdate, false);
-  chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
-    userhl(response.data);
-});
+    userhl_init();
 }
 });
+function userhl_init(){
+    chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
+        userhl(response.data);
+    });
+}
 function reupdate(e){
     try{
         e.target.getElementsByClassName("message-top");

@@ -62,7 +62,7 @@ function today(){
 	var j = new Date();
 	if(j.getMonth() == '3' && j.getDate() == '20'){
 		document.getElementsByClassName('small')[0].innerHTML = '4.2.0 =)';
-        document.getElementsByClassName('towel')[0].innerHTML = 'You wanna get high?<br><img src="' + chrome.extension.getURL('images/towelie.png') + '">';
+        document.getElementsByClassName('towel')[0].innerHTML = 'You\'re a towel.<br><img src="' + chrome.extension.getURL('images/towelie.png') + '">';
 	}
 }
 function button(){
@@ -74,7 +74,7 @@ function clearsaved(){
 	document.getElementsByClassName('saved').item(0).innerHTML = "";
 }
 function restore(){
-	localStorage['chromeLL_version'] = '1.2.6.3';
+	localStorage['chromeLL_version'] = '1.2.7.0';
 	//console.log(localStorage['chromeLL_quicklinks']);
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){

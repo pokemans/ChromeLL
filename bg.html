@@ -40,11 +40,53 @@ chrome.extension.onRequest.addListener(
 				sendResponse({data: req});
 			});
 		}
-      }
-      else{
+     }
+     else if(request.need == "topic_userhl"){
+     try{
+        if(localStorage['chromeLL_userhighlight'] == undefined){
+            localStorage['chromeLL_userhighlight'] = '';
+        }
+        var over = localStorage['chromeLL_userhighlight'].split(';');
+        var users = Array();
+        var colors = Array();
+        var texts = Array();
+        for(var i = 0; over[i]; i++){
+            users[i] = over[i].split(':')[0];
+            colors[i] = over[i].split(':')[1];
+            texts[i] = over[i].split(':')[2];
+        }
+        var found = false;
+        for(var i = 0; users[i]; i++){
+            if(request.user.toLowerCase() == users[i]){
+                if(request.rm == 'true'){
+                    users[i] = '';
+                }else{
+                    colors[i] = request.color;
+                }
+                found = true;
+            }
+        }
+        if(!found && request.rm != 'true'){
+            var len = users.length;
+            users[len] = request.user.toLowerCase();
+            colors[len] = request.color;
+            texts[len] = '';
+        }
+        var ls = '';
+        for(var i = 0; users[i] != undefined; i++){
+            if(users[i] != ''){
+                ls += users[i] + ':' + colors[i] + ':' + texts[i] + ';';
+            }
+        }
+        localStorage['chromeLL_userhighlight'] = ls;
+        sendResponse({data: 'true'});
+    }catch(e){
+        sendResponse({data: e});
+    }
+    }
+    else{
       	sendResponse({data: localStorage[request.need]});
-      	console.log("resp");
-      }
+    }
   });
 </script>
 </head>
