@@ -44,7 +44,6 @@ function mouseHandler(e){
     }if(e.shiftKey && e.altKey){
         if(e.toElement.cellIndex == 0){
             addrmtc(e.toElement.firstChild);
-            e.toElement.getElementsByTagName('a')[0].style.color = '';
         }if(e.toElement.cellIndex == 1){
             chrome.extension.sendRequest({need: "topic_userhl", user: e.toElement.innerText, color: '', rm: 'true'}, function(response){
             });
