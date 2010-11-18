@@ -247,9 +247,10 @@ function scrollz(){
 	console.log(window.pageYOffset);
 	console.log("height: " + document.body.offsetHeight / 1.08290378);
 }
+/*
 if(window.location.href.indexOf('showtopics') != -1){
 	document.getElementsByTagName('small').item(0).innerHTML += ' (<a href="##" onclick="clearstg()">clear removed topics</a>)';
-}
+}*/
 //console.log(document.getElementsByTagName('small').item(0).innerHTML);
 //self.setInterval('scroll()', 5000);
 

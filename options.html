@@ -40,6 +40,11 @@ body{
 	font-size:10px;
 	text-align:center;
 }
+.kshortcut{
+    font-size: 12px;
+    padding-left: 20px;
+    display: none;
+}
 .desc{
 	font-size:10px;
 	color:#666;
@@ -58,6 +63,14 @@ body{
 }
 </style>
 <script type="text/javascript">
+function unhide(){
+    var s = document.getElementsByClassName('kshortcut')[0];
+    if(s.style.display == 'block'){
+        s.style.display = 'none';
+    }else{
+        s.style.display = 'block';
+    }
+}
 function today(){
 	var j = new Date();
 	if(j.getMonth() == '3' && j.getDate() == '20'){
@@ -579,7 +592,17 @@ Quick Links HTML: <input type="text" name="quicklinks" style="width: 75%"><selec
 <table>
 <tr><td>
 <img src="/images/shorttitle.png"></td><td><input type="checkbox" name="chromeLL_shorttitle"> - Livelinks Page Title update</td></tr>
-<tr><td><!--<img src="/images/topiclinks.png">--></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Manual topic highlight (alt+click to highlight, alt+shift+click to remove)</td></tr>
+<tr><td><!--<img src="/images/topiclinks.png">--></td><td><input type="checkbox" name="chromeLL_page_qlinks"> - Keyboard Shortcuts (<a href="##" onclick="unhide()">howto</a>)</td></tr><tr><td></td><td><span class="kshortcut">
+On "Topic"<br>
+&nbsp;&nbsp;- Alt+click to highlight topic/change color<br>
+&nbsp;&nbsp;- Alt+shift+click to unlighlight<br>
+On "Created By"<br>
+&nbsp;&nbsp;- Alt+click to highlight user/change color<br>
+&nbsp;&nbsp;- Alt+shift+click to unhighlight<br>
+On "Msgs"<br>
+&nbsp;&nbsp;- Alt+click to open page jump window<br>
+&nbsp;&nbsp;- Alt+shift+click to jump to last page<br>
+</span></td></tr>
 <!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
 <tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted</span></td></tr>
 </table>

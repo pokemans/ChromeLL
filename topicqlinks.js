@@ -17,6 +17,17 @@ function mouseHandler(e){
     if(!e.shiftKey && e.altKey){
         if(e.toElement.cellIndex == 0){
             hluser(e.toElement.firstChild);
+            /*var x = e.toElement.getElementsByTagName('a')[0];
+            var t1 = '0123456789abcdef#';
+            var t2 = 'fedcba9876543210#';
+            var bg = e.toElement.style.backgroundColor;
+            console.log('bg: ' + bg);
+            var m = bg.match(/rgb\((.*), (.*), (.*)\)/);
+            m[1] = 255 - m[1];
+            m[2] = 255 - m[2];
+            m[3] = 255 - m[3];
+            console.log(m);
+            x.style.color = "rgb(" + m[1] + ", " + m[2] + ", " + m[3] + ")";*/
         }if(e.toElement.cellIndex == 1){
             chrome.extension.sendRequest({need: "topic_userhl", user: e.toElement.innerText, color: rcolor(), rm: 'false'}, function(response){
             });
@@ -33,6 +44,7 @@ function mouseHandler(e){
     }if(e.shiftKey && e.altKey){
         if(e.toElement.cellIndex == 0){
             addrmtc(e.toElement.firstChild);
+            e.toElement.getElementsByTagName('a')[0].style.color = '';
         }if(e.toElement.cellIndex == 1){
             chrome.extension.sendRequest({need: "topic_userhl", user: e.toElement.innerText, color: '', rm: 'true'}, function(response){
             });
@@ -54,7 +66,8 @@ function hluser(element){
 	var topics = parsetopics();
 	var colors = parsecolors();
 	var c = '#' + rcolor();
-	highlight(el, c);
+    el.getElementsByTagName('a')[0].style.color = c;
+	//highlight(el, c);
 	var g = el.getElementsByTagName('a').item(0).href;
 	var f = g.indexOf('topic');
 	var ct = g.substring(f, g.length).split('=')[1];
@@ -165,10 +178,10 @@ try{
 				if(users[e] == tc){
 					index = e;
 					//console.log("found tc to highlight: " + e);
-					for(var s = 0; g.item(i).getElementsByTagName('td').item(s+1); s++){
-						g.item(i).getElementsByTagName('td').item(s).style.background = colors[index];
+					//for(var s = 0; g.item(i).getElementsByTagName('td').item(s+1); s++){
+						g.item(i).getElementsByTagName('td')[0].getElementsByTagName('a')[0].style.color = colors[index];
 						//console.log("highlighing topic \"" + tc + "\" color " + colors[index] + " section " + s);
-					}
+					//}
 				}
 			}
 		}
@@ -184,9 +197,9 @@ try{
 	var f = g.indexOf('topic');
 	var ct = g.substring(f, g.length).split('=')[1];
 	if(ishl(topics, ct)[0]){
-		for(var i = 0; element.getElementsByTagName('td').item(i); i++){
-			element.getElementsByTagName('td').item(i).style.background = '';
-		}
+		//for(var i = 0; element.getElementsByTagName('td').item(i); i++){
+			element.getElementsByTagName('td')[0].getElementsByTagName('a')[0].style.color = '';
+		//}
 		var g = element.getElementsByTagName('a').item(0).href;
 		var f = g.indexOf('topic');
 		var ct = g.substring(f, g.length).split('=')[1];
