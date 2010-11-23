@@ -6,6 +6,11 @@ chrome.extension.sendRequest({need: "chromeLL_userhighlighton"}, function(respon
 });
 }
 });
+function userhl_init(){
+    chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
+        userhl(response.data);
+    });
+}
 function reupdate(e){
     try{
         e.target.getElementsByClassName("message-top");
@@ -49,7 +54,7 @@ if(w.indexOf("showtopics") != -1){
 			for(var e = 0; users[e]; e++){
 				if(users[e] == tc){
 					index = e;
-					console.log("found tc to highlight: " + e);
+					//console.log("found tc to highlight: " + e);
 				}
 			}
 			for(var s = 0; g.item(i).getElementsByTagName('td').item(s); s++){
