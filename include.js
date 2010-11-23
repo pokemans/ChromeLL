@@ -3,6 +3,35 @@ chrome.extension.sendRequest({need: "chromeLL_shorttitle"}, function(response) {
   	shorten();
   }
 });
+function pgGet(){
+/*
+    if(window.location.href.indexOf('showmessages') != -1){
+        document.getElementById('u0_3').innerHTML += ' | <a href="##" id="nextPg">load next page</a>';
+    }*/
+    var g = getUrlVars(window.location.href);
+    var pg;
+    var x = new XMLHttpRequest();
+    var ld;
+    if(g['ld'] == undefined){
+        ld = 1;
+    }else{
+        ld = g['ld'];
+    }
+    if(g['page'] == undefined){
+        pg = 1;
+    }else{
+        pg = g['page'];
+    }
+    if(ld > pg){
+        pg = ld + 1;
+    }else{
+        pg++;
+    }
+    x.open('get', 'showmessages.php?topic=' + g['topic'] + '&page=' + pg, false);
+    x.send();
+    window.location.href = window.location.href + '##&ld=' + pg;
+    document.getElementById('u0_1').innerHTML += x.responseText.match(/<div id="u0_1">([^`]*?)<div class="infobar" id="u0_3">/)[1];
+}
 //var p = document.createElement('a');
 //p.innerHTML = ' ->allow notifications';
 //p.onclick = 'setAllowNotification()';
@@ -101,7 +130,7 @@ function enotify(t, m, data){
 	}
 	for(var i = 0; users[i]; i++){
 		if(users[i].toLowerCase() == m.toLowerCase()){
-			chrome.extension.sendRequest({need: "notify", title: "Post by " + m, message: t}, function(response) {
+			chrome.extension.sendRequest({need: "notify", title: "Post by highlighted user " + m, message: t}, function(response) {
 				// empty
 			});
 		}

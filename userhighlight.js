@@ -1,14 +1,11 @@
 chrome.extension.sendRequest({need: "chromeLL_userhighlighton"}, function(response) {
   if(response.data == "true"){
   //document.addEventListener('DOMNodeInserted', reupdate, false);
-    userhl_init();
+  chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
+    userhl(response.data);
+});
 }
 });
-function userhl_init(){
-    chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
-        userhl(response.data);
-    });
-}
 function reupdate(e){
     try{
         e.target.getElementsByClassName("message-top");
@@ -65,15 +62,19 @@ if(w.indexOf("showtopics") != -1){
 if(w.indexOf("showmessages") != -1){
     try{
 	var s = document.getElementsByClassName('message-container');
-	var tc = '';
+	var tc;
 	for(var i = 0; s.item(i); i++){
-		tc = s.item(i).getElementsByClassName('message-top')[0].getElementsByTagName('a').item(0).innerHTML.toLowerCase();
-		for(var e = 0; users[e]; e++){
-			if(users[e] == tc){
-				s[i].getElementsByClassName('message-top')[0].style.background = "#" + colors[e];
-				s[i].getElementsByClassName('message-body')[0].style.color = "#" + textc[e];
-				//console.log("found tc to highlight: " + e);
-			}
+		for(var y = 0; s[i].getElementsByClassName('message-top')[y]; y++){
+			tc = s[i].getElementsByClassName('message-top')[y].getElementsByTagName('a').item(0).innerHTML.toLowerCase();
+			try{
+				for(var e = 0; users[e]; e++){
+					if(users[e] == tc){
+						s[i].getElementsByClassName('message-top')[y].style.background = "#" + colors[e];
+						s[i].getElementsByClassName('message-body')[y].style.color = "#" + textc[e];
+						//console.log("found tc to highlight: " + e);
+					}
+				}
+			}catch(e){}
 		}
 		//s.item(i).style.background = "#" + colors[index];
 		//document.getElementsByClassName('message')[i].style.color = '#' + textc[index];

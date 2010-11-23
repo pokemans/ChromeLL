@@ -1,6 +1,6 @@
 {
   "name": "ChromeLL",
-  "version": "1.2.7.0",
+  "version": "1.2.7.1",
   "update_url": "http://www.chairface.org/ext/updates.xml",
   "description": "Some helpful LL features",
   "options_page": "options.html",

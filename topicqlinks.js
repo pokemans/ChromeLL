@@ -4,16 +4,19 @@ chrome.extension.sendRequest({need: "chromeLL_page_qlinks"}, function(response) 
   	}
 });
 function init(){
-    if(window.location.href.indexOf('showtopics') != -1){
+    //if(window.location.href.indexOf('showtopics') != -1){
         //for(var i = 1; document.getElementsByTagName('tr').item(i); i++){
             //document.getElementsByTagName('tr').item(i).getElementsByTagName('td').item(0).addEventListener('mousedown', mouseHandler, false);
         //}
         document.addEventListener('mousedown', mouseHandler, false);
         rehl();
         rerm();
-    }
+    //}
 }
 function mouseHandler(e){
+    if(e.toElement.id == 'u0_3' && e.metaKey){
+        pgGet();
+    }
     if(!e.shiftKey && e.altKey){
         if(e.toElement.cellIndex == 0){
             hluser(e.toElement.firstChild);
