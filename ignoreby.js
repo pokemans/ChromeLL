@@ -2,6 +2,7 @@ chrome.extension.sendRequest({need: "chromeLL_ignoretopicsbyon"}, function(respo
   if(response.data == "true"){
   chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) {
     rmby(response.data);
+    document.addEventListener('DOMNodeInserted', rmby_livelinks, false);
 });
 }
 });
@@ -44,4 +45,26 @@ if(w.indexOf("showmessages") != -1){
 		}
 	}
 }
+}
+function rmby_livelinks(el){
+	chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) { var ignores = response.data; rm_livelinks(ignores, el); });
+}
+function rm_livelinks(topics, el){
+	try{
+			var ignores = topics.toLowerCase().split(',');
+			for(var r = 0; r < ignores.length; r++){
+				if(ignores[r].substring(0,1) == ' '){
+					ignores[r] = ignores[r].substring(1,ignores[r].length);
+				}
+			}
+			var m = el.srcElement.getElementsByClassName('message-top')[0];
+			for(var f = 0; ignores[f]; f++){
+				if(m.getElementsByTagName('a')[0].innerHTML.toLowerCase() == ignores[f]){
+					el.srcElement.parentNode.removeChild(el.srcElement);
+					console.log('removed livelinks post by ' + ignores[f]);
+					//return 1;
+				}
+			}	
+		}catch(e){
+	}
 }
