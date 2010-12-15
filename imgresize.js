@@ -12,7 +12,6 @@ function imgresize(size, em){
 	var el = em.srcElement;
 	try{
 		if(el.tagName.toLowerCase() == 'img'){
-			console.log('found img');
 			if(el.width > size){
 				console.log('resizing');
 				console.log(el);

@@ -4,7 +4,6 @@ chrome.extension.sendRequest({need: "chromeLL_shorttitle"}, function(response) {
   }
 });
 chrome.extension.sendRequest({need: "chromeLL_like"}, function(response) {
-	console.log('like ' + response.data);
 	if(response.data == "true"){
 		inslike();
 	}
@@ -76,7 +75,6 @@ function updateposts(e){
 		return 0;
 	}
 	if(e.target.getElementsByClassName("message-top").item(0) != null){
-        console.log(e);
 		if(document.title.substring(0,1) == '('){
 			var ud = document.title.substring(1, document.title.indexOf(')'));
 			ud++;
@@ -113,7 +111,7 @@ function notifyUpdate(e){
         notify(e, document.title);
     }
 }
-function notify(e, dtitle){    
+function notify(e, dtitle){
             var by = e.target.getElementsByClassName("message-top")[0].getElementsByTagName('a')[0].innerHTML;
             chrome.extension.sendRequest({need: "chromeLL_userhighlight"}, function(response) {
                 enotify(dtitle, by, response.data);

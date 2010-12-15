@@ -47,7 +47,12 @@ if(w.indexOf("showmessages") != -1){
 }
 }
 function rmby_livelinks(el){
-	chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) { var ignores = response.data; rm_livelinks(ignores, el); });
+	try{
+		var m = el.srcElement.getElementsByClassName('message-top')[0];
+		console.log('m');
+		chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) { var ignores = response.data; rm_livelinks(ignores, el); });
+	}
+	catch(e){console.log('y')}
 }
 function rm_livelinks(topics, el){
 	try{

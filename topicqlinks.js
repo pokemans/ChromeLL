@@ -36,8 +36,8 @@ function mouseHandler(e){
             });
             userhl_init();
         }if(e.toElement.cellIndex == 2){
-            pg = prompt("","Page Number");
-            if(pg == undefined || pg == "Page Number"){
+            pg = prompt("Page Number (" + Math.ceil(e.toElement.innerHTML.split('<')[0] / 50) + " total)","Page");
+            if(pg == undefined || pg == "Page"){
                 return 0;
             }
             window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + pg;

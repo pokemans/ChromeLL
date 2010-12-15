@@ -125,6 +125,12 @@ function restore(){
 	if(localStorage['chromeLL_updatereaders'] == undefined){
 		localStorage['chromeLL_updatereaders'] = true;
 	}
+	if(localStorage['chromeLL_cssquotes'] == undefined){
+		localStorage['chromeLL_cssquotes'] = false;
+	}
+	if(localStorage['chromeLL_cssquotes_color'] == undefined){
+		localStorage['chromeLL_cssquotes_color'] = '6896D5';
+	}
 	if(localStorage['chromeLL_userhighlight'] == undefined || localStorage['chromeLL_userhighlight'] == ''){
 		localStorage['chromeLL_userhighlight'] = '::;';
 	}
@@ -191,30 +197,14 @@ function restore(){
 	document.disable.chromeLL_ignoretopics.value = localStorage['chromeLL_ignoretopics'];
 	document.disable.chromeLL_ignoretopicsby.value = localStorage['chromeLL_ignoretopicsby'];
 	document.disable.chromeLL_imgres.value = localStorage['chromeLL_imgres'];
-
-	document.disable.chromeLL_tchighlight.checked = (localStorage['chromeLL_tchighlight'] == "true");
-	document.disable.chromeLL_like.checked = (localStorage['chromeLL_like'] == "true");
-	document.disable.chromeLL_forcehttps.checked = (localStorage['chromeLL_forcehttps'] == "true");
-	document.disable.chromeLL_page_qlinks.checked = (localStorage['chromeLL_page_qlinks'] == "true");
-	document.disable.chromeLL_shorttitle.checked = (localStorage['chromeLL_shorttitle'] == "true");
-	document.disable.chromeLL_ctcount.checked = (localStorage['chromeLL_ctcount'] == "true");
-	document.disable.chromeLL_ignoretopicson.checked = (localStorage['chromeLL_ignoretopicson'] == "true");
-	document.disable.chromeLL_hlnotify.checked = (localStorage['chromeLL_hlnotify'] == "true");
-	document.disable.chromeLL_imgresize.checked = (localStorage['chromeLL_imgresize'] == "true");
-	document.disable.chromeLL_qtnotify.checked = (localStorage['chromeLL_qtnotify'] == "true");
-	document.disable.chromeLL_page_qreply.checked = (localStorage['chromeLL_page_qreply'] == "true");
-	document.disable.chromeLL_ignoretopicsbyon.checked = (localStorage['chromeLL_ignoretopicsbyon'] == "true");
-	//document.disable.chromeLL_page_like.checked = (localStorage['chromeLL_page_like'] == "true");
-	document.disable.chromeLL_keywordhlon.checked = (localStorage['chromeLL_keywordhlon'] == "true");
-	document.disable.chromeLL_autodl.checked = (localStorage['chromeLL_autodl'] == "true");
-	document.disable.chromeLL_imgmaplink.checked = (localStorage['chromeLL_imgmaplink'] == "true");
-	//document.disable.chromeLL_beta.checked = (localStorage['chromeLL_beta'] == "true");
-	document.disable.chromeLL_navi.checked = (localStorage['chromeLL_navi'] == "true");
-	document.disable.chromeLL_userhighlighton.checked = (localStorage['chromeLL_userhighlighton'] == "true");
-	document.disable.chromeLL_loadquotes.checked = (localStorage['chromeLL_loadquotes'] == "true");
-	document.disable.chromeLL_numberposts.checked = (localStorage['chromeLL_numberposts'] == "true");
-
-
+	document.disable.chromeLL_cssquotes_color.value = localStorage['chromeLL_cssquotes_color'];
+	var m = document.getElementsByTagName('input');
+	for(var i = 0; m[i]; i++){
+		if(m[i].type.toLowerCase() == 'checkbox'){
+			m[i].checked = (localStorage[m[i].name] == 'true');
+		}
+	}
+	
 	var over = localStorage['chromeLL_userhighlight'].split(';');
 	var users = new Array();
 	var colors = new Array();
@@ -253,37 +243,22 @@ function restore(){
     //setNotify();
 }
 function save(){
-	localStorage['chromeLL_like'] = document.disable.chromeLL_like.checked;
 	localStorage['chromeLL_quicklinks'] = document.disable.quicklinks.value;
-	localStorage['chromeLL_tchighlight'] = document.disable.chromeLL_tchighlight.checked;
-	//localStorage['chromeLL_page_like'] = document.disable.chromeLL_page_like.checked;
-	//localStorage['chromeLL_page_liketxt'] = document.disable.chromeLL_page_liketxt.value;
-	localStorage['chromeLL_navi'] = document.disable.chromeLL_tchighlight.checked;
-    	localStorage['chromeLL_hlnotify'] = document.disable.chromeLL_hlnotify.checked;
-   	localStorage['chromeLL_qtnotify'] = document.disable.chromeLL_qtnotify.checked;
-	localStorage['chromeLL_page_qlinks'] = document.disable.chromeLL_page_qlinks.checked;
-	localStorage['chromeLL_shorttitle'] = document.disable.chromeLL_shorttitle.checked;
-	//localStorage['chromeLL_updatereaders'] = document.disable.chromeLL_updatereaders.checked;
-	localStorage['chromeLL_loadquotes'] = document.disable.chromeLL_loadquotes.checked;
-	localStorage['chromeLL_numberposts'] = document.disable.chromeLL_numberposts.checked;
-	localStorage['chromeLL_imgmaplink'] = document.disable.chromeLL_imgmaplink.checked;
-	localStorage['chromeLL_forcehttps'] = document.disable.chromeLL_forcehttps.checked;
-	localStorage['chromeLL_autodl'] = document.disable.chromeLL_autodl.checked;
-	localStorage['chromeLL_imgresize'] = document.disable.chromeLL_imgresize.checked;
+	localStorage['chromeLL_like'] = document.disable.chromeLL_like.checked;
 	localStorage['chromeLL_imgres'] = document.disable.chromeLL_imgres.value;
-	localStorage['chromeLL_ctcount'] = document.disable.chromeLL_ctcount.checked;
-	//localStorage['chromeLL_beta'] = document.disable.chromeLL_beta.checked;
-	localStorage['chromeLL_page_qreply'] = document.disable.chromeLL_page_qreply.checked;
 	localStorage['chromeLL_tchighlightcolor'] = '#' + document.disable.chromeLL_tchighlightcolor.value;
-	localStorage['chromeLL_userhighlighton'] = document.disable.chromeLL_userhighlighton.checked;
-	localStorage['chromeLL_ignoretopicson'] = document.disable.chromeLL_ignoretopicson.checked;
-	//localStorage['chromeLL_ignorelinkson'] = document.disable.chromeLL_ignorelinkson.checked;
-	localStorage['chromeLL_ignoretopicsbyon'] = document.disable.chromeLL_ignoretopicsbyon.checked;
-	//localStorage['chromeLL_ignorelinksby'] = document.disable.chromeLL_ignorelinksby.checked;
 	localStorage['chromeLL_ignoretopics'] = document.disable.chromeLL_ignoretopics.value;
 	localStorage['chromeLL_ignoretopicsby'] = document.disable.chromeLL_ignoretopicsby.value;
 	localStorage['chromeLL_keywordhl'] = document.disable.chromeLL_keywordhl.value + ';' + document.disable.chromeLL_keywordhlcolor.value;
-	localStorage['chromeLL_keywordhlon'] = document.disable.chromeLL_keywordhlon.checked;
+	localStorage['chromeLL_cssquotes_color'] = document.disable.chromeLL_cssquotes_color.value;
+
+	var m = document.getElementsByTagName('input');
+	for(var i = 0; m[i]; i++){
+		if(m[i].type.toLowerCase() == 'checkbox'){
+			localStorage[m[i].name] = m[i].checked;
+		}
+	}
+	
 	var userhighlight = '';
 	if(document.disable.user1.value != undefined){
             //console.log('no user');
@@ -536,6 +511,7 @@ On "Msgs"<br>
 <tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted</span></td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_imgresize"> - Resize images wider than <input type="text" name="chromeLL_imgres" style="width: 50px;">px</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_forcehttps"> - Force HTTPS</td></tr>
+<tr><td><img src="images/quotes.png"></td><td><input type="checkbox" name="chromeLL_cssquotes"> - Foxlinks style quotes - color: #<input type="text" name="chromeLL_cssquotes_color" style="width: 70px"> (main color #3)</td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
