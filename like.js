@@ -5,7 +5,14 @@ function insl(e){
 	catch (e){
 		return 0;
 	}
-	if(e.target.getElementsByClassName("message-top").item(0) != null){		var es=e.target.getElementsByClassName("message-top");		es.item(0).innerHTML += ' | <a href="##like" onclick="like(this);">Like</a>';	}
+	if(e.target.getElementsByClassName("message-top").item(0) != null){		var es=e.target.getElementsByClassName("message-top");
+		var re = new RegExp("<number>(.*)</number>");
+		var num = es[0].innerHTML.match(re);
+		try{
+			es[0].innerHTML = es[0].innerHTML.replace(num[1], "");			es[0].innerHTML += ' | <a href="##like" onclick="like(this);">Like</a>' + num[1];
+		}catch(e){
+			es[0].innerHTML += ' | <a href="##like" onclick="like(this);">Like</a>';
+		}	}
 }
 function like(el){
 	var e = el.parentNode.parentNode;
