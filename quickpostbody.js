@@ -60,11 +60,6 @@ function qpbody(){
 	m.insertBefore(document.createElement('br'), insB);
 	
 }
-chrome.extension.sendRequest({need: "chromeLL_tagbuttons"}, function(response) {
-	if(response.data == "true"){
-		qpbody();
-	}
-});
 chrome.extension.sendRequest({need: "chromeLL_qponbottom"}, function(response) {
 	if(response.data == "true"){
 		injqbcss();
@@ -74,6 +69,7 @@ function qpbHandler(e){
 	if(e.target.tagName != 'INPUT'){
 		return 0;
 	}
+	//from foxlinks
 	var tag = e.target.id;
         var open = new RegExp("\\*", "m");
         var ta = e.target.nextSibling;
@@ -109,6 +105,7 @@ function qpbHandler(e){
         ta.focus();
 }
 function injqbcss(){
+	//from foxlinks
 	var cssCode = "body:not(.quickpost-expanded) form.quickpost {"+
         "display: block;"+
         "position: static;"+
@@ -127,5 +124,32 @@ function injqbcss(){
             styleElement.appendChild(document.createTextNode(cssCode));
         }
     	document.getElementsByTagName("head")[0].appendChild(styleElement);
+}
+function postBeforePreview(){
+	var m = document.getElementsByClassName('quickpost-body')[0].getElementsByTagName('input');
+	var preview;
+	var post;
+	for(var i = 0; m[i]; i++){
+		if(m[i].name == 'preview'){
+			preview = m[i];
+		}
+		if(m[i].name == 'post'){
+			post = m[i];
+		}
+	}
+	post.parentNode.removeChild(post);
+	preview.parentNode.insertBefore(post, preview);
+}
+if(window.location.href.indexOf('showmessages') != -1){
+chrome.extension.sendRequest({need: "chromeLL_tagbuttons"}, function(response) {
+	if(response.data == "true"){
+		qpbody();
+	}
+});
+chrome.extension.sendRequest({need: "chromeLL_postbeforepreview"}, function(response) {
+	if(response.data == "true"){
+		postBeforePreview();
+	}
+});
 }
 	
