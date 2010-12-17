@@ -47,6 +47,8 @@ function shorten(){
 	document.title = document.title.replace(/End of the Internet - /i, '');
 	document.addEventListener('DOMNodeInserted', updateposts, false);
 	document.addEventListener('mousemove', clrupdates, false);
+	document.addEventListener('mousewheel', clrupdates, false);
+	
     //document.addEventListener('mousedown', mouseHandler, false);
 }
 function topicnotifier(){

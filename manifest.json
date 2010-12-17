@@ -1,6 +1,6 @@
 {
   "name": "ChromeLL",
-  "version": "1.2.9.2",
+  "version": "1.2.10.0",
   "update_url": "http://www.chairface.org/ext/updates.xml",
   "description": "Some helpful LL features",
   "options_page": "options.html",
@@ -15,7 +15,7 @@
     },
     {
        "matches": ["http://boards.endoftheinter.net/*", "https://boards.endoftheinter.net/*"],
-       "js": ["ignore.js", "ignoreby.js", "imgresize.js"]
+       "js": ["ignore.js", "ignoreby.js", "imgresize.js", "quickpostbody.js"]
     },
     {
            "matches": ["http://*.endoftheinter.net/*"],

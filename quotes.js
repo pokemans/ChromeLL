@@ -13,7 +13,7 @@ function quotify(mcol){
 	for(var i = 0; m[i]; i++){
 		try{
 		m[i].style.borderStyle = 'solid';
-		m[i].style.borderWidth = '4px';
+		m[i].style.borderWidth = '2px';
 		m[i].style.borderRadius = '5px';
 		m[i].style.marginRight = '30px';
 		m[i].style.marginLeft = '10px';
@@ -22,7 +22,7 @@ function quotify(mcol){
 		m[i].style.borderColor = mcol;
 		n = m[i].getElementsByClassName('message-top')[0];
 		n.style.background = mcol;
-		n.style.marginTop = '-2px';
+		n.style.marginTop = '0px';
 		n.style.paddingBottom = '2px';
 		n.style.marginLeft = '-6px';
 		//console.log(m[i].parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('message-top')[0].style);
