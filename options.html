@@ -66,19 +66,16 @@ body{
 function unhide(){
     var s = document.getElementsByClassName('kshortcut')[0];
     s.style.display = (s.style.display == 'block') ? 'none':'block';
-    /*
-    if(s.style.display == 'block'){
-        s.style.display = 'none';
-    }else{
-        s.style.display = 'block';
-    }*/
 }
 function today(){
 	var j = new Date();
 	if(j.getMonth() == '3' && j.getDate() == '20'){
-		document.getElementsByClassName('small')[0].innerHTML = '4.2.0 =)';
-        document.getElementsByClassName('towel')[0].innerHTML = 'You\'re a towel.<br><img src="' + chrome.extension.getURL('images/towelie.png') + '">';
+        towelie();
 	}
+}
+function towelie(){
+    document.getElementsByClassName('small')[0].innerHTML = '4.2.0 =)';
+    document.getElementsByClassName('towel')[0].innerHTML = '<img src="' + chrome.extension.getURL('images/towelie.png') + '">';
 }
 function button(){
 	document.disable.savebutton.value="save";
@@ -91,7 +88,8 @@ function clearsaved(){
 function restore(){
 
 	//DEFS
-	localStorage['chromeLL_version'] = '1.2.10.0';
+	localStorage['chromeLL_version'] = '1.2.11.2';
+    //var defEnable = new Array("page_like", "
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){
 		localStorage['chromeLL_tchighlight'] = true;
@@ -112,13 +110,6 @@ function restore(){
 	if(localStorage['chromeLL_keywordhlon'] == undefined){
 				localStorage['chromeLL_keywordhlon'] = 'false';
 	}
-	/*
-	if(localStorage['chromeLL_page_like'] == undefined){
-		localStorage['chromeLL_page_like'] = 'true';
-	}
-	if(localStorage['chromeLL_page_liketxt'] == undefined){
-		localStorage['chromeLL_page_liketxt'] = '<img src="http://i4.endoftheinter.net/i/n/f818de60196ad15c888b7f2140a77744/like.png" /> %u likes %f\'s post';
-	}*/
 	if(localStorage['chromeLL_numberposts'] == undefined){
 		localStorage['chromeLL_numberposts'] = false;
 	}
@@ -305,10 +296,11 @@ function restoreql(){
 	}
 }
 function qsave(){
+    console.log('qsave');
 	var userhighlight = '';
 	if(document.disable.color1 == undefined){
 			adduser();
-			break;
+			return;
 	}
 	if(document.disable.user1.value){
 			userhighlight = document.disable.user1.value + ":" + document.disable.color1.value + ":" + document.disable.color2.value + ";";
@@ -324,11 +316,14 @@ function qsave(){
 	adduser();
 	userhl2(userhighlight);
 }
+function qsavew(){
+    alert('test');
+}
 function qsaver(){
 	var userhighlight = '';
 	if(document.disable.qrtext == undefined){
 		qadduser();
-		break;
+		return
 	}
 	if(document.disable.qrtext.value){
 			userhighlight = document.disable.qrtext.value + ":$_QRTXTB_$:" + document.disable.qrtitle.value + ";$$_QREND_$$;";
@@ -511,10 +506,15 @@ On "Msgs"<br>
 &nbsp;&nbsp;- Alt+shift+click to jump to last page<br>
 </span></td></tr>
 <!--<tr><td></td><td><input type="checkbox" name="chromeLL_beta"> - Chatlinks Beta (read <a href="chairface.org/ext/beta.html">this</a>)</td></tr>-->
-<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">--><input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br><input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted</span></td></tr>
+<tr><td><img src="/images/notification2.png"></td><td><!--<input type="checkbox" name="chromeLL_notify" onclick="toggleNotify();setNotify()"> - Notifications<span id="notification" style="display:none">-->
+<input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br>
+<input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted<br>
+<input type="checkbox" name="chromeLL_watch"> - Enable Watch button (notify on new posts)<br>
+<input type="checkbox" name="chromeLL_newpg"> - Notify when a new page is created</span></td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_imgresize"> - Resize images wider than <input type="text" name="chromeLL_imgres" style="width: 50px;">px</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_forcehttps"> - Force HTTPS</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_floatbars"> - Float userbar + menubar (beta - PM me if this doesn't look right)</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_secretboards"> - Show secret boards in board list</td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>
@@ -523,9 +523,11 @@ On "Msgs"<br>
 </table>
 <div class="line"></div><table>
 <tr><td><img src="/images/tchl.png"></td><td>
-<input type="checkbox" name="chromeLL_tchighlight"> - Highlight TC</td><td>color: #<input type="text" name="chromeLL_tchighlightcolor" onKeyUp="uhcolor(this)"></td></tr>
+<input type="checkbox" name="chromeLL_tchighlight"> - Highlight TC's username</td><td>color: #<input type="text" name="chromeLL_tchighlightcolor" onKeyUp="uhcolor(this)"></td></tr>
+<tr><td><img src="/images/tclabel.png"></td><td>
+<input type="checkbox" name="chromeLL_tclabel"> - Show <b>(TC)</b> next to TC's username</td><td></td></tr>
 <tr><td><img src="/images/userhl.png"></td><td>
-<input type="checkbox" name="chromeLL_userhighlighton"> - Highlight Users</td> <td><input type="button" onClick="qsave()" value="+"></td></tr></table>
+<input type="checkbox" name="chromeLL_userhighlighton"> - Highlight Users</td> <td><input type="button" onclick="qsave()" value="+"></td></tr></table>
 <div class="info" style="color:#000; margin-left:200px;">(note: blank usernames will be removed, usernames are not case sensitive)</div>
 <div class="userlist"></div><div class="line"></div><table>
 <tr><td><img src="images/quotes.png"></td><td><input type="checkbox" name="chromeLL_cssquotes"> - Foxlinks style quotes - color: #<input type="text" name="chromeLL_cssquotes_color" style="width: 70px"> (<a href="https://endoftheinter.net/colors.php">main color 3</a>)</td></tr>

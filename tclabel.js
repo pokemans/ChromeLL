@@ -1,16 +1,15 @@
-chrome.extension.sendRequest({need: "chromeLL_tchighlight"}, function(response) {
-  if(response.data == "true"){
-  	chrome.extension.sendRequest({need: "chromeLL_tchighlightcolor"}, function(response) {
-  	if(window.location.href.indexOf('board=444') != -1){
-  		ha(response.data);
-  	}
-  	else{
-		tchl(response.data);
-	}
-	  });  
-	}
+chrome.extension.sendRequest({need: "chromeLL_tclabel"}, function(response) {
+    if(response.data == "true"){
+        if(window.location.href.indexOf('board=444') != -1){
+            hal();
+        }
+        else{
+            tcll();
+            document.addEventListener('DOMNodeInserted', tcll_update, false);
+        }
+    }
 });
-function tchl(hlcolor){
+function tcll(){
 if(localStorage['chromeLL_currenttc'] == undefined){
 	localStorage['chromeLL_currenttc'] = 'test:234341;fsdef:34234';
 }
@@ -49,39 +48,19 @@ if(index == -1){
 while(document.getElementsByClassName('message-top').item(j)){
 	var s = document.getElementsByClassName('message-top').item(j);
 	if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == tcs[index]){
-		s.getElementsByTagName('a').item(0).style.color = hlcolor;
+        var ipx = document.createElement('span');
+        ipx.innerHTML = '<b>(TC)</b> ';
+		s.insertBefore(ipx, s.getElementsByTagName('a')[0]);
 	}
 	j = j + 1;
 }
-save(tcs, tnum, hlcolor);
 }
-function getTopic(pw){
-	return pw.substring(pw.indexOf("topic") + 6, pw.indexOf("topic") + 13);
+function hal(){
+	console.log('TC labeling has been disabled on HA');
 }
-function save(tc, tl, hlc){
-	var def = '';
-	if(tc.length > 10){
-		for(var i = tc.length - 10; i <= 10; i++){
-			def += tc[i] + ":" + tl[i] + ";";
-		}
-		//console.log('cache rebuilt');
-	}
-	else{
-		for(var i = 0; i < tc.length; i++){
-			def += tc[i] + ":" + tl[i] + ";";
-		}
-	}
-	localStorage['chromeLL_currenttc'] = def + "$COL$" + hlc;
-}
-function ha(hlc){
-	console.log('TC highlighting has been disabled on HA');
-}
-document.addEventListener('DOMNodeInserted', tchl_update, false);
-function tchl_update(e){
+function tcll_update(e){
 	var ls = localStorage['chromeLL_currenttc'];
 	var hlcolor = ls.split('$COL$')[1];
-	//the easy way out
-	//tchl(hlcolor);
 	try{e.target.getElementsByClassName("message-top").item(0);}
 	catch (e){
 		return 0;
@@ -106,28 +85,11 @@ function tchl_update(e){
 		for(var index = 0; tnum[index]; index++){
 			if(tnum[index] == get['topic']){
 				if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == tcs[index]){
-					s.getElementsByTagName('a').item(0).style.color = hlcolor;
+					var ipx = document.createElement('span');
+                    ipx.innerHTML = '<b>(TC)</b> ';
+                    s.insertBefore(ipx, s.getElementsByTagName('a')[0]);
 				}
 			}
 		}
 	}
-}
-function getUrlVars(urlz)
-{
-	//thanks for the function citizenray
-	var vars = [], hash;
-	var hashes = urlz.slice(urlz.indexOf('?') + 1).split('&');
-	 
-	for(var i = 0; i < hashes.length; i++)
-	{
-		hash = hashes[i].split('=');
-		vars.push(hash[0]);
-		vars[hash[0]] = hash[1];
-		if (hash[1]!=null && hash[1].indexOf("#")>=0)
-		{
-			vars[hash[0]]=hash[1].slice(0,hash[1].indexOf("#"));
-		}
-	}
-	 
-	return vars;
 }

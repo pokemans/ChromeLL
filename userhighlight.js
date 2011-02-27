@@ -49,7 +49,9 @@ if(w.indexOf("showtopics") != -1){
 	var g = document.getElementsByTagName('tr');
 	var tc = '';
 	for(var i = 1; g.item(i); i++){
+        index = -1;
 		tc = g.item(i).getElementsByTagName('td').item(1).getElementsByTagName('a').item(0).innerHTML.toLowerCase();
+        // check if user is in highlight string before finding color
 		if(userstring.indexOf(tc) != -1){
 			for(var e = 0; users[e]; e++){
 				if(users[e] == tc){
@@ -57,10 +59,12 @@ if(w.indexOf("showtopics") != -1){
 					//console.log("found tc to highlight: " + e);
 				}
 			}
-			for(var s = 0; g.item(i).getElementsByTagName('td').item(s); s++){
-				g.item(i).getElementsByTagName('td').item(s).style.background = "#" + colors[index];
-				//console.log("highlighing tc \"" + tc + "\" color " + colors[index] + " section " + s);
-			}
+            if(index != -1){
+                for(var s = 0; g.item(i).getElementsByTagName('td').item(s); s++){
+                    g.item(i).getElementsByTagName('td').item(s).style.background = "#" + colors[index];
+                    //console.log("highlighing tc \"" + tc + "\" color " + colors[index] + " section " + s);
+                }
+            }
 		}
 	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "ChromeLL",
-  "version": "1.2.10.0",
+  "version": "1.2.11.2",
   "update_url": "http://www.chairface.org/ext/updates.xml",
   "description": "Some helpful LL features",
   "options_page": "options.html",
@@ -11,11 +11,15 @@
  "content_scripts": [
     {
       "matches": ["http://boards.endoftheinter.net/*", "http://archives.endoftheinter.net/*", "https://boards.endoftheinter.net/*", "https://archives.endoftheinter.net/*"],
-      "js": ["quotes.js", "loadquotes.js", "tchighlight.js", "include.js", "topicqlinks.js", "postnum.js", "imagemap.js", "userhighlight.js", "keywordhl.js", "float.js"]
+      "js": ["quotes.js", "loadquotes.js", "tchighlight.js", "tclabel.js", "include.js", "topicqlinks.js", "postnum.js", "imagemap.js", "userhighlight.js", "keywordhl.js", "float.js"]
     },
     {
        "matches": ["http://boards.endoftheinter.net/*", "https://boards.endoftheinter.net/*"],
-       "js": ["ignore.js", "ignoreby.js", "imgresize.js", "quickpostbody.js"]
+       "js": ["ignore.js", "ignoreby.js", "imgresize.js", "quickpostbody.js", "softupdate.js"]
+    },
+    {
+        "matches": ["https://boards.endoftheinter.net/boardlist.php", "http://boards.endoftheinter.net/boardlist.php"],
+        "js": ["secretboards.js"]
     },
     {
            "matches": ["http://*.endoftheinter.net/*"],
@@ -35,7 +39,7 @@
     }
   ],
  
- "permissions": [ "tabs", "notifications" ],
+ "permissions": [ "tabs", "notifications"],
 "browser_action": {
     "default_icon": "images/lueshi.png",
     "default_title": "ChromeLL",

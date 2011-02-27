@@ -27,8 +27,8 @@ if(w.indexOf("showtopics") != -1){
 			if(title.getElementsByTagName('a').item(0).innerHTML.toLowerCase().indexOf(ignores[f]) != -1){
 				console.log('found topic to remove: \"' + title.getElementsByTagName('a').item(0).innerHTML.toLowerCase() + "\" keyword: " + ignores[f] + " topic: " + i);
 				if(title.getElementsByTagName('a').item(0)){
-					title.parentNode.parentNode.removeChild(title.parentNode);
-					i--;
+					title.parentNode.style.display = 'none';//.parentNode.removeChild(title.parentNode);
+					//i--;
 				}
 				
 			}

@@ -24,8 +24,8 @@ if(w.indexOf("showtopics") != -1){
 			if(title.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == ignores[f]){
 				console.log('found topic to remove: \"' + g.item(i).getElementsByTagName('td').item(0).getElementsByTagName('a').item(0).innerHTML.toLowerCase() + "\" author: " + ignores[f] + " topic: " + i);
 				if(title.getElementsByTagName('a').item(0)){
-					title.parentNode.parentNode.removeChild(title.parentNode);
-					i--;
+					title.parentNode.style.display = 'none';
+					//i--;
 				}
 				
 			}
@@ -38,8 +38,8 @@ if(w.indexOf("showmessages") != -1){
 		s = document.getElementsByClassName('message-top').item(j);
 		for(var f = 0; ignores[f]; f++){
 			if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == ignores[f]){
-				s.parentNode.parentNode.removeChild(s.parentNode);
-				j--;
+				s.parentNode.style.display = 'none';
+				//j--;
 				console.log('removed post by ' + ignores[f]);
 			}
 		}
@@ -51,7 +51,7 @@ function rmby_livelinks(el){
 		var m = el.srcElement.getElementsByClassName('message-top')[0];
 		chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) { var ignores = response.data; rm_livelinks(ignores, el); });
 	}
-	catch(e){console.log('y')}
+	catch(e){/*console.log('y')*/}
 }
 function rm_livelinks(topics, el){
 	try{

@@ -8,6 +8,11 @@ chrome.extension.sendRequest({need: "chromeLL_like"}, function(response) {
 		inslike();
 	}
 });
+chrome.extension.sendRequest({need: "chromeLL_watch"}, function(response) {
+	if(response.data == "true"){
+		topicnotifier();
+	}
+});
 	
 function pgGet(){
 /*
@@ -70,7 +75,6 @@ function topicnotifier(){
 	headID.appendChild(newScript);
     }	
 }
-topicnotifier();
 function updateposts(e){
 	try{e.target.getElementsByClassName("message-top").item(0);}
 	catch (e){
@@ -80,6 +84,16 @@ function updateposts(e){
 		if(document.title.substring(0,1) == '('){
 			var ud = document.title.substring(1, document.title.indexOf(')'));
 			ud++;
+            if(document.getElementsByClassName('message-container')[49]){
+                ud = ud + "+";
+                chrome.extension.sendRequest({need: "chromeLL_newpg"}, function(response) {
+                    if(response.data == "true"){
+                        chrome.extension.sendRequest({need: "notify", title: "New Page Created", message: document.title}, function(response) {
+                            // empty
+                        });
+                    }
+                });
+            }
 			document.title = '(' + ud + ')' + document.title.substring(document.title.indexOf(')') + 1, document.title.length);
         }
 		else{

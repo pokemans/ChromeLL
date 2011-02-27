@@ -35,6 +35,11 @@ h1{
 }
 </style>
 <script type="text/javascript">
+function openBoard(){
+    var h = 'http';
+    if(localStorage['chromeLL_http'] == 'https' || localStorage['chromeLL_forcehttps'] == 'true') h = 'https';
+    window.open(h + "://boards.endoftheinter.net/showtopics.php?board=" + document.boards.board.value);
+}
 function getList(){
 	chrome.extension.sendRequest({need: "cfapi", action: "list"}, function(resp) {
 		var rd = resp.data.replace(/:/g, '<br>');
@@ -102,7 +107,7 @@ function http(type){
 <div class="line"></div>
 <div class="line"></div>
 <div class="info">board list</div>
-<form name="boards" action="http://boards.endoftheinter.net/showtopics.php" method="get" target="_new">
+<form name="boards"><!--action="http://boards.endoftheinter.net/showtopics.php" method="get" target="_new"-->
 <select name="board" style="width: 160px">
 <option value="42">
 Life, the Universe and Everything </option>
@@ -261,7 +266,7 @@ Jesus Ranch</option><option value="
 HaLUE</option><option value="
 18">The World That I Know</option>
 </select>
-<input type="submit" value="go">
+<input type="button" value="go" onclick="openBoard()">
 </form>
 <div class="line"></div>
 <div class="info"><a href="#" onclick="javascript:window.open(chrome.extension.getURL('options.html'))">Options</a></div><!--
