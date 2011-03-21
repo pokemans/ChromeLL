@@ -88,7 +88,7 @@ function clearsaved(){
 function restore(){
 
 	//DEFS
-	localStorage['chromeLL_version'] = '1.2.11.2';
+	localStorage['chromeLL_version'] = '1.2.12.2';
     //var defEnable = new Array("page_like", "
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){
@@ -104,23 +104,17 @@ function restore(){
 	if(localStorage['chromeLL_tagbuttons'] == undefined){
 			localStorage['chromeLL_tagbuttons'] = true;
 	}
+	if(localStorage['chromeLL_closenotify'] == undefined){
+			localStorage['chromeLL_closenotify'] = true;
+	}
 	if(localStorage['chromeLL_keywordhl'] == undefined || localStorage['chromeLL_keywordhl'] == ';'){
 			localStorage['chromeLL_keywordhl'] = ';999';
-	}
-	if(localStorage['chromeLL_keywordhlon'] == undefined){
-				localStorage['chromeLL_keywordhlon'] = 'false';
-	}
-	if(localStorage['chromeLL_numberposts'] == undefined){
-		localStorage['chromeLL_numberposts'] = false;
 	}
 	if(localStorage['chromeLL_page_qlinks'] == undefined){
 		localStorage['chromeLL_page_qlinks'] = true;
 	}
 	if(localStorage['chromeLL_updatereaders'] == undefined){
 		localStorage['chromeLL_updatereaders'] = true;
-	}
-	if(localStorage['chromeLL_cssquotes'] == undefined){
-		localStorage['chromeLL_cssquotes'] = false;
 	}
 	if(localStorage['chromeLL_cssquotes_color'] == undefined){
 		localStorage['chromeLL_cssquotes_color'] = '6896D5';
@@ -131,29 +125,11 @@ function restore(){
 	if(localStorage['chromeLL_userhighlighton'] == undefined){
 		localStorage['chromeLL_userhighlighton'] = 'true';
 	}
-	if(localStorage['chromeLL_ignoretopicson'] == undefined){
-		localStorage['chromeLL_ignoretopicson'] = 'false';
-	}
-	if(localStorage['chromeLL_forcehttps'] == undefined){
-			localStorage['chromeLL_forcehttps'] = 'false';
-	}
 	if(localStorage['chromeLL_ignoretopics'] == undefined){
 		localStorage['chromeLL_ignoretopics'] = '';
 	}
-	if(localStorage['chromeLL_ignorelinkson'] == undefined){
-		localStorage['chromeLL_ignorelinkson'] = 'false';
-	}
-	if(localStorage['chromeLL_ignoretopicsbyon'] == undefined){
-		localStorage['chromeLL_ignoretopicsbyon'] = 'false';
-	}
-	if(localStorage['chromeLL_imgresize'] == undefined){
-			localStorage['chromeLL_imgresize'] = 'false';
-	}
 	if(localStorage['chromeLL_imgres'] == undefined){
 			localStorage['chromeLL_imgres'] = '1440';
-	}
-	if(localStorage['chromeLL_page_qreply'] == undefined){
-		localStorage['chromeLL_page_qreply'] = 'false';
 	}
 	if(localStorage['chromeLL_like'] == undefined){
 		localStorage['chromeLL_like'] = 'true';
@@ -164,9 +140,6 @@ function restore(){
 	if(localStorage['chromeLL_ignoretopicsby'] == undefined){
 		localStorage['chromeLL_ignoretopicsby'] = '';
 	}
-	if(localStorage['chromeLL_ignorelinksby'] == undefined){
-		localStorage['chromeLL_ignorelinksby'] = 'false';
-	}
 	if(localStorage['chromeLL_loadquotes'] == undefined){
 		localStorage['chromeLL_loadquotes'] = true;
 	}
@@ -176,17 +149,15 @@ function restore(){
     if(localStorage['chromeLL_qtnotify'] == undefined){
 		localStorage['chromeLL_qtnotify'] = true;
 	}
-	if(localStorage['chromeLL_autodl'] == undefined){
-		localStorage['chromeLL_autodl'] = false;
-	}
 	if(localStorage['chromeLL_ctcount'] == undefined){
 		localStorage['chromeLL_ctcount'] = true;
 	}
-	if(localStorage['chromeLL_imgmaplink'] == undefined){
-		localStorage['chromeLL_imgmaplink'] = false;
+	if(localStorage['chromeLL_closentf'] == undefined){
+		localStorage['chromeLL_closentf'] = "5";
 	}
 
 	//RESTORE
+	document.disable.chromeLL_closentf.value = localStorage['chromeLL_closentf'];
 	document.disable.chromeLL_tchighlightcolor.value = localStorage['chromeLL_tchighlightcolor'].replace('#', '');
 	document.disable.chromeLL_ignoretopics.value = localStorage['chromeLL_ignoretopics'];
 	document.disable.chromeLL_ignoretopicsby.value = localStorage['chromeLL_ignoretopicsby'];
@@ -238,6 +209,7 @@ function restore(){
 }
 function save(){
 	localStorage['chromeLL_quicklinks'] = document.disable.quicklinks.value;
+	localStorage['chromeLL_closentf'] = document.disable.chromeLL_closentf.value;
 	localStorage['chromeLL_like'] = document.disable.chromeLL_like.checked;
 	localStorage['chromeLL_imgres'] = document.disable.chromeLL_imgres.value;
 	localStorage['chromeLL_tchighlightcolor'] = '#' + document.disable.chromeLL_tchighlightcolor.value;
@@ -510,11 +482,22 @@ On "Msgs"<br>
 <input type="checkbox" name="chromeLL_hlnotify"> - Notify when Highlighted User posts<br>
 <input type="checkbox" name="chromeLL_qtnotify"> - Notify when I am quoted<br>
 <input type="checkbox" name="chromeLL_watch"> - Enable Watch button (notify on new posts)<br>
-<input type="checkbox" name="chromeLL_newpg"> - Notify when a new page is created</span></td></tr>
+<input type="checkbox" name="chromeLL_newpg"> - Notify when a new page is created<br>
+<input type="checkbox" name="chromeLL_closenotify"> - Close notifications after <input type="text" name="chromeLL_closentf" style="width: 40px"> seconds
+</span></td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_imgresize"> - Resize images wider than <input type="text" name="chromeLL_imgres" style="width: 50px;">px</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_forcehttps"> - Force HTTPS</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_floatbars"> - Float userbar + menubar (beta - PM me if this doesn't look right)</td></tr>
 <tr><td></td><td><input type="checkbox" name="chromeLL_secretboards"> - Show secret boards in board list</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_filterme"> - Enable "Filter Me" button</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_asearch"> - Go to advanced search when I click on "Search"</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_expspoilers"> - Enable expand all spoilers button</td></tr>
+</table>
+<div class="line"></div>
+<table>
+<tr><td><div style="width: 194px"></div></td><td><input type="checkbox" name="chromeLL_sortlast"> - Sort history.php by last post in topic by default</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_expsearch"> - Auto expand search on history.php</td></tr>
+<tr><td></td><td><input type="checkbox" name="chromeLL_historypg"> - Show page jump buttons on history.php</td></tr>
 </table>
 <div class="line"><table>
 <tr><td><img src="/images/shorttitle.png" style="visibility:hidden"></td><td><input type="checkbox" name="chromeLL_ignoretopicson"> - Ignore topics containing words:</td><td><input type="text" name="chromeLL_ignoretopics" style="width: 400px;"> (separate with commas)</td></tr>

@@ -5,7 +5,22 @@ chrome.extension.sendRequest({need: "chromeLL_keywordhlon"}, function(response) 
 });
 }
 });
+chrome.extension.sendRequest({need: "chromeLL_sortlast"}, function(response) {
+	if(response.data == "true"){
+		if(window.location.href.indexOf('profile.php') != -1){
+			sortLast();
+		}
+	}
+});
 
+function sortLast(){
+	var el = document.getElementsByTagName('table')[0].getElementsByTagName('a');
+	for(var i = 0; el[i]; i++){
+		if(el[i].href.indexOf('history.php') != -1){
+			el[i].href = el[i].href + "?b";
+		}
+	}
+}
 function keywordhl(list){
 var unp = list.split(';');
 var keys = new Array();

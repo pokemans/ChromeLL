@@ -1,6 +1,9 @@
 function qpbody(){
 	var m = document.getElementsByClassName('quickpost-body')[0];
 	var txt = document.getElementById('u0_13');
+	if(window.location.href.indexOf('linkme.php') != -1){
+		txt = document.getElementById('u0_25');
+	}
 	var insM = document.createElement('input');
 	insM.value = 'Mod';
 	insM.name = 'Mod';
@@ -140,7 +143,7 @@ function postBeforePreview(){
 	post.parentNode.removeChild(post);
 	preview.parentNode.insertBefore(post, preview);
 }
-if(window.location.href.indexOf('showmessages') != -1){
+if(window.location.href.indexOf('showmessages') != -1 || window.location.href.indexOf('inboxthread') != -1 || window.location.href.indexOf('linkme') != -1){
 chrome.extension.sendRequest({need: "chromeLL_tagbuttons"}, function(response) {
 	if(response.data == "true"){
 		qpbody();

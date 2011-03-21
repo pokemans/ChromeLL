@@ -13,7 +13,61 @@ chrome.extension.sendRequest({need: "chromeLL_watch"}, function(response) {
 		topicnotifier();
 	}
 });
-	
+chrome.extension.sendRequest({need: "chromeLL_filterme"}, function(response) {
+	if(response.data == "true"){
+		if(window.location.href.indexOf('showmessages') != -1){
+			filterMe();
+		}
+	}
+});
+chrome.extension.sendRequest({need: "chromeLL_expspoilers"}, function(response) {
+	if(response.data == "true"){
+		if(window.location.href.indexOf('showmessages') != -1){
+			setSpoilerButton();
+		}
+	}
+});
+function filterMe(){
+	var me = '&u=' + document.getElementsByClassName('userbar')[0].getElementsByTagName('a')[0].href.match(/\?user=([0-9]+)/)[1];
+	var txt = 'Filter Me';
+	var board = window.location.href.match(/board=([0-9]+)/)[1];
+	var topic = window.location.href.match(/topic=([0-9]+)/)[1];
+	var fmh;
+	if(window.location.href.indexOf(me) == -1){
+		
+		fmh = window.location.href.split('?')[0] + '?board=' + board + '&topic=' + topic + me;
+	}else{
+		fmh = window.location.href.replace(me, '');
+		txt = 'Unfilter Me';
+	}
+	document.getElementsByClassName('infobar')[0].innerHTML += ' | <a href="' + fmh + '">' + txt + '</a>';
+}
+function setSpoilerButton(){
+	var ains = document.createElement('span');
+	ains.id = 'chromell_spoilers';
+	document.addEventListener('click', spoilerToggle, false);
+	ains.innerHTML = ' | <a href="##" id="chromell_spoiler">Expand Spoilers</a>';
+	var la = document.getElementsByClassName('infobar')[0].getElementsByClassName('a');
+	document.getElementsByClassName('infobar')[0].insertBefore(ains, la[la.size]);
+}
+function spoilerToggle(el){
+	if(el.srcElement.id != 'chromell_spoiler'){
+		return;
+	}
+	var spans = document.getElementsByClassName('spoiler_on_close');
+	var nnode;	
+	for(var i = 0; spans[i]; i++){
+		nnode = spans[i].getElementsByTagName('a')[0];
+		toggle_spoiler(nnode);
+	}
+}
+function toggle_spoiler(obj){
+	while (!/spoiler_(?:open|close)/.test(obj.className)){
+		obj=obj.parentNode;
+	}
+	obj.className=obj.className.indexOf('closed') != -1 ? obj.className.replace('closed', 'opened') : obj.className.replace('opened', 'closed');	
+	return false;
+}
 function pgGet(){
 /*
     if(window.location.href.indexOf('showmessages') != -1){

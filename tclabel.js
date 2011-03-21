@@ -49,8 +49,8 @@ while(document.getElementsByClassName('message-top').item(j)){
 	var s = document.getElementsByClassName('message-top').item(j);
 	if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == tcs[index]){
         var ipx = document.createElement('span');
-        ipx.innerHTML = '<b>(TC)</b> ';
-		s.insertBefore(ipx, s.getElementsByTagName('a')[0]);
+        ipx.innerHTML = ' | <b>(TC)</b> ';
+		s.insertBefore(ipx, s.getElementsByTagName('a')[0].nextSibling);
 	}
 	j = j + 1;
 }
@@ -86,8 +86,8 @@ function tcll_update(e){
 			if(tnum[index] == get['topic']){
 				if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == tcs[index]){
 					var ipx = document.createElement('span');
-                    ipx.innerHTML = '<b>(TC)</b> ';
-                    s.insertBefore(ipx, s.getElementsByTagName('a')[0]);
+                   			ipx.innerHTML = ' | <b>(TC)</b> ';
+                   			s.insertBefore(ipx, s.getElementsByTagName('a')[0].nextSibling);
 				}
 			}
 		}

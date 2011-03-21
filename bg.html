@@ -1,6 +1,6 @@
 <html>
 <head>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>-->
 <script type="text/javascript">
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
@@ -14,12 +14,17 @@ chrome.extension.onRequest.addListener(
       }
       else if(request.need == "notify"){
             var notification = webkitNotifications.createNotification(
-            'images/ll.png',
+            'images/lueshi_48.png',
             request.title,
             request.message);
             notification.show();
+		if(localStorage['chromeLL_closenotify'] == 'true'){
+			setTimeout(function(){notification.cancel();}, parseInt(localStorage['chromeLL_closentf']) * 1000);
+		}
+
         }
       else if(request.need == "cfapi"){
+		/*
       		if(request.action == "update"){
 			$.post("http://chat.chairface.org/api/1/?api=update", { chat_cid: request.cookie }, function(req){
 				sendResponse({data: req});
@@ -39,7 +44,7 @@ chrome.extension.onRequest.addListener(
 			$.get("http://chat.chairface.org/api/1/?api=getmsg", function(req){
 				sendResponse({data: req});
 			});
-		}
+		}*/
      }
      else if(request.need == "topic_userhl"){
      try{

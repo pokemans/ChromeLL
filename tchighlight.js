@@ -53,7 +53,11 @@ while(document.getElementsByClassName('message-top').item(j)){
 	}
 	j = j + 1;
 }
-save(tcs, tnum, hlcolor);
+if(index == -1){
+	console.log('unknown tc!');
+}else{
+	save(tcs, tnum, hlcolor);
+}
 }
 function getTopic(pw){
 	return pw.substring(pw.indexOf("topic") + 6, pw.indexOf("topic") + 13);
