@@ -54,7 +54,7 @@
     }
   ],
  
- "permissions": [ "tabs", "notifications", "http://u.endoftheinter.net", "https://u.endoftheinter.net"],
+ "permissions": [ "tabs", "notifications", "http://u.endoftheinter.net/", "https://u.endoftheinter.net/"],
 "browser_action": {
     "default_icon": "images/lueshi.png",
     "default_title": "ChromeLL",
