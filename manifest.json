@@ -1,0 +1,68 @@
+{
+  "name": "ChromeLL",
+  "version": "1.2.13.7",
+  "update_url": "http://www.chairface.org/ext/updates.xml",
+  "description": "Some helpful LL features",
+  "options_page": "options.html",
+  "minimum_chrome_version": "9.0.193.0",
+  "icons": {
+  	"16": "images/ll.png",
+	"48": "images/lueshi_48.png",
+	"128":	"images/lueshi_128.png"
+   },
+  "background_page": "bg.html",
+ "content_scripts": [
+    {
+	"matches": ["http://boards.endoftheinter.net/*", "http://archives.endoftheinter.net/*", "https://boards.endoftheinter.net/*", "https://archives.endoftheinter.net/*"],
+	"js": ["quotes.js", "loadquotes.js", "tchighlight.js", "tclabel.js", "include.js", "topicqlinks.js", "postnum.js", "imagemap.js", "userhighlight.js", "keywordhl.js", "float.js"]
+    },
+    {
+	"matches": ["http://boards.endoftheinter.net/*", "https://boards.endoftheinter.net/*"],
+	"js": ["ignore.js", "ignoreby.js", "imgresize.js", "quickpostbody.js", "softupdate.js", "dramalinks.js", "batchupload.js"]
+    },
+    {
+        "matches": ["https://boards.endoftheinter.net/boardlist.php", "http://boards.endoftheinter.net/boardlist.php"],
+        "js": ["secretboards.js"]
+    },
+    {
+	"matches": ["http://boards.endoftheinter.net/history*", "https://boards.endoftheinter.net/history*"],
+	"js": ["msghistory.js"]
+    },
+    {
+	"matches": ["http://*.endoftheinter.net/*"],
+        "js": ["https.js"]
+    },
+	{
+		"matches": ["https://u.endoftheinter.net/*", "http://u.endoftheinter.net/*"],
+		"js": ["batchupload.js"],
+		"all_frames" : true
+	},
+    {
+	"matches": ["http://*.endoftheinter.net/*", "https://*.endoftheinter.net/*"],
+	"js": ["asearch.js", "softupdate.js"]
+    },
+    {
+	"matches": ["http://endoftheinter.net/inboxthread*", "https://endoftheinter.net/inboxthread*", "http://links.endoftheinter.net/linkme*", "https://links.endoftheinter.net/linkme*"],
+	"js": ["quickpostbody.js"]
+    },
+    {
+	"matches": ["http://links.endoftheinter.net/*", "https://links.endoftheinter.net/*"],
+	"js": ["cts.js", "float.js", "userhighlight.js", "softupdate.js"]
+    },
+    {
+        "matches": ["http://endoftheinter.net/*", "http://www.endoftheinter.net/*", "https://endoftheinter.net/*", "https://www.endoftheinter.net/*"],
+        "js": ["userhighlight.js", "keywordhl.js"]
+    },
+    {
+	"matches": ["http://*.megaupload.com/*"],
+	"js": ["autodl.js"]
+    }
+  ],
+ 
+ "permissions": [ "tabs", "notifications", "http://*.endoftheinter.net/", "https://*.endoftheinter.net/"],
+"browser_action": {
+    "default_icon": "images/lueshi.png",
+    "default_title": "ChromeLL",
+    "popup": "popup.html"
+  }
+}
