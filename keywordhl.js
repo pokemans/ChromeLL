@@ -32,12 +32,18 @@ for(var q = 0; over[q]; q++){
 		keys[q] = keys[q].substring(1,keys[q].length);
 	}
 }
-var w = "" + window.location;
+var w = "" + window.location.href;
 if(w.indexOf("showtopics") != -1){
 	var g = document.getElementsByTagName('tr');
 	var des;
+	var sd = 0;
 	for(var i = 1; g.item(i); i++){
-		des = g.item(i).getElementsByTagName('td').item(0).getElementsByTagName('a').item(0).innerHTML.toLowerCase();
+		if(title = g.item(i).getElementsByTagName('td').item(0)){
+		title = g.item(i).getElementsByTagName('td').item(0);
+		if(title.getElementsByTagName('a')[0].innerHTML == '#'){
+			sd = 2;
+		}
+		des = g.item(i).getElementsByTagName('td').item(0).getElementsByTagName('a')[sd].innerHTML.toLowerCase();
 		for(var e = 0; keys[e]; e++){
 			if(des.indexOf(keys[e]) != -1){
 				//g.item(i).getElementsByTagName('a').item(0).style.color = "#" + color;
@@ -54,6 +60,7 @@ if(w.indexOf("showtopics") != -1){
 							g.item(i).getElementsByTagName('td').item(s).style.background = "#" + color;
 				}*/
 			}
+		}
 		}
 	}
 }

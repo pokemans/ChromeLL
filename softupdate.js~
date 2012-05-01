@@ -28,7 +28,7 @@ function linkUpdate(){
 if(window.location.href.indexOf('postmsg') != -1){
 	chrome.extension.sendRequest({need: "chromeLL_postnewline"}, function(response) {
 		if(response.data == "true"){
-			if(document.getElementsByTagName('textarea')[0].innerHTML.substring(0, 2) == '\n-'){
+			if(document.getElementsByTagName('textarea')[0].innerHTML.substring(0, 1) == '-'){
 				document.getElementsByTagName('textarea')[0].innerHTML = "\n" + document.getElementsByTagName('textarea')[0].innerHTML;
 				console.log('inserting newline');
 			}

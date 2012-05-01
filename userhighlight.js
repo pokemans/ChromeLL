@@ -33,12 +33,18 @@ var over = ulist.split(';');
 var users = new Array();
 var colors = new Array();
 var textc = new Array();
+var texth = new Array();
 var userstring = '';
 for(var q = 0; over[q]; q++){
 	users[q] = over[q].split(':')[0].toLowerCase();
 	userstring += " " + over[q].split(':')[0].toLowerCase();
 	colors[q] = over[q].split(':')[1].toLowerCase();
 	textc[q] = over[q].split(':')[2].toLowerCase();
+	try{
+		texth[q] = over[q].split(':')[3].toLowerCase();
+	}catch(e){
+		texth[q] = '';
+	}
 }
 //console.log(users);
 //console.log(colors);
@@ -49,6 +55,7 @@ if(w.indexOf("showtopics") != -1){
 	var g = document.getElementsByTagName('tr');
 	var tc = '';
 	for(var i = 1; g.item(i); i++){
+	if(g[i].getElementsByTagName('td')[1]){
         index = -1;
 		tc = g.item(i).getElementsByTagName('td').item(1).getElementsByTagName('a').item(0).innerHTML.toLowerCase();
         // check if user is in highlight string before finding color
@@ -62,6 +69,40 @@ if(w.indexOf("showtopics") != -1){
             if(index != -1){
                 for(var s = 0; g.item(i).getElementsByTagName('td').item(s); s++){
                     g.item(i).getElementsByTagName('td').item(s).style.background = "#" + colors[index];
+			if(s < 3){
+				for(var k = 0; g[i].getElementsByTagName('td')[s].getElementsByTagName('a')[k]; k++){
+					g[i].getElementsByTagName('td')[s].getElementsByTagName('a')[k].style.color = "#" + texth[index];
+				}
+			}
+			g[i].getElementsByTagName('td').item(s).style.color = "#" + texth[index];
+                    //console.log("highlighing tc \"" + tc + "\" color " + colors[index] + " section " + s);
+                }
+            }
+		}
+		}
+	}
+}
+if(w.indexOf("links.php") != -1){
+	var g = document.getElementsByTagName('tr');
+	var tc = '';
+	for(var i = 1; g.item(i); i++){
+        index = -1;
+		tc = g.item(i).getElementsByTagName('td').item(2).getElementsByTagName('a').item(0).innerHTML.toLowerCase();
+        // check if user is in highlight string before finding color
+		if(userstring.indexOf(tc) != -1){
+			for(var e = 0; users[e]; e++){
+				if(users[e] == tc){
+					index = e;
+					//console.log("found tc to highlight: " + e);
+				}
+			}
+            if(index != -1){
+                for(var s = 0; g.item(i).getElementsByTagName('td').item(s); s++){
+                    g.item(i).getElementsByTagName('td').item(s).style.background = "#" + colors[index];
+			for(var k = 0; g[i].getElementsByTagName('td')[s].getElementsByTagName('a')[k]; k++){
+				g[i].getElementsByTagName('td')[s].getElementsByTagName('a')[k].style.color = "#" + texth[index];
+			}
+			g[i].getElementsByTagName('td').item(s).style.color = "#" + texth[index];
                     //console.log("highlighing tc \"" + tc + "\" color " + colors[index] + " section " + s);
                 }
             }
@@ -79,6 +120,10 @@ if(w.indexOf("showmessages") != -1){
 				for(var e = 0; users[e]; e++){
 					if(users[e] == tc){
 						s[i].getElementsByClassName('message-top')[y].style.background = "#" + colors[e];
+						s[i].getElementsByClassName('message-top')[y].style.color = "#" + texth[e];
+						for(var k = 0; s[i].getElementsByClassName('message-top')[y].getElementsByTagName('a')[k]; k++){
+							s[i].getElementsByClassName('message-top')[y].getElementsByTagName('a')[k].style.color = '#' + texth[e];
+						}
 						s[i].getElementsByClassName('message-body')[y].style.color = "#" + textc[e];
 						//console.log("found tc to highlight: " + e);
 					}

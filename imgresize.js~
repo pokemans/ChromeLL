@@ -22,11 +22,11 @@ function imgresize(size, em){
 			//console.log('resizing');
 			if(el.width > size){				
 				//console.log(el);
-				console.log('resizing:', el);
 				el.height = (el.height / (el.width / size));
 				el.parentNode.style.height = el.height + 'px';
 				el.width = size;
 				el.parentNode.style.width = size + 'px';
+				console.log('resized: ', el);
 			}
 		}
 	}catch(e){}

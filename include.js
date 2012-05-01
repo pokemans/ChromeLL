@@ -27,6 +27,71 @@ chrome.extension.sendRequest({need: "chromeLL_expspoilers"}, function(response) 
 		}
 	}
 });
+chrome.extension.sendRequest({need: "chromeLL_historypg"}, function(response) {
+	if(response.data == "true"){
+		insHJumpTopic();
+	}
+});
+function inlineExp(){
+	var q = document.getElementsByClassName('quoted-message');
+	for(var i = 0; q[i]; i++){
+		if(q[i].getElementsByTagName('a') != undefined){
+			for(var j = 0; q[i].getElementsByTagName('a')[j]; j++){
+				if(q[i].getElementsByTagName('a')[j].getElementsByTagName('span') != undefined){
+					q[i].getElementsByTagName('a')[j].removeAttribute('href');
+					for(var k = 0; 	q[i].getElementsByTagName('a')[j].getElementsByTagName('span')[k]; k++){			
+						q[i].getElementsByTagName('a')[j].onclick = doExpand;
+					}
+				}
+			}
+		}
+	}
+}
+//inlineExp();
+function doExpand(ev){
+	if(ev.srcElement.tagName == 'IMG'){
+		var l = ev.srcElement.src;
+		var i = document.createElement('img');
+		i.src = l;
+		console.log(i.width);
+		ev.srcElement.width = i.width;
+		//ev.srcElement.parentNode.insertBefore(ev.srcElement, i);
+	}
+		
+}
+function insHJumpTopic(){
+	var trs = document.getElementsByTagName('table')[0].getElementsByTagName('tr');
+	if(document.getElementsByTagName('table')[1]){
+		trs = document.getElementsByTagName('table')[1].getElementsByTagName('tr');
+	}	
+	var insert;
+	var tmp;
+	for(var i = 1; trs[i]; i++){
+		if(trs[i].getElementsByTagName('td')[0]){
+		insert = document.createElement('span');
+		insert.style.float = 'right';
+		insert.addEventListener('click', jumpHandlerTopic, false);
+		tmp = trs[i].getElementsByTagName('td')[0].getElementsByTagName('a')[0].href.match(/topic=([0-9]+)/)[1];
+		insert.innerHTML = '<a href="##' + tmp + '" id="jumpWindow">#</a> <a href="##' + tmp + '" id="jumpLast">&gt;</a>';
+		trs[i].getElementsByTagName('td')[0].insertBefore(insert, trs[i].getElementsByTagName('td')[0].getElementsByTagName('a')[0]);
+		}
+	}
+	
+}
+function jumpHandlerTopic(ev){
+	var a = ev.srcElement.parentNode.parentNode.parentNode.getElementsByTagName('td')[2]
+	var last = Math.ceil(a.innerHTML.split('<')[0] / 50);
+	if(ev.srcElement.id == 'jumpWindow'){
+	pg = prompt("Page Number (" + last + " total)","Page");
+            if(pg == undefined || pg == "Page"){
+                return 0;
+            }
+	}else{
+		console.log(last);
+		pg = last;
+	}
+            window.location = ev.srcElement.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[2].href + '&page=' + pg;
+}
 function filterMe(){
 	var me = '&u=' + document.getElementsByClassName('userbar')[0].getElementsByTagName('a')[0].href.match(/\?user=([0-9]+)/)[1];
 	var txt = 'Filter Me';

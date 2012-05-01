@@ -4,12 +4,18 @@ chrome.extension.sendRequest({need: "chromeLL_tclabel"}, function(response) {
             hal();
         }
         else{
-            tcll();
+		chrome.extension.sendRequest({need: "chromeLL_tclabelcolor"}, function(response) {
+			if(response.data == undefined){
+            			tcll('');
+			}else{
+				tcll(response.data);
+			}
+		});
             document.addEventListener('DOMNodeInserted', tcll_update, false);
         }
     }
 });
-function tcll(){
+function tcll(lcol){
 if(localStorage['chromeLL_currenttc'] == undefined){
 	localStorage['chromeLL_currenttc'] = 'test:234341;fsdef:34234';
 }
@@ -49,7 +55,11 @@ while(document.getElementsByClassName('message-top').item(j)){
 	var s = document.getElementsByClassName('message-top').item(j);
 	if(s.getElementsByTagName('a').item(0).innerHTML.toLowerCase() == tcs[index]){
         var ipx = document.createElement('span');
-        ipx.innerHTML = ' | <b>(TC)</b> ';
+	var inner = ' | <font color="#' + lcol + '"><b>(TC)</b></font> ';
+	if(lcol == ''){
+		inner = ' | <b>(TC)</b> ';
+	}
+        ipx.innerHTML = inner;
 		s.insertBefore(ipx, s.getElementsByTagName('a')[0].nextSibling);
 	}
 	j = j + 1;

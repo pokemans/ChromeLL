@@ -32,7 +32,7 @@ if(w.indexOf("showtopics") != -1){
 		for(var f = 0; f < ignores.length; f++){
 			if(ignores[f].substring(0, 1) == '/'){
 			//console.log('found regex:', ignores[f]);
-			if(ignores[f].substring(ignores[f].length - 1, ignores[f].length) == 'i'){
+			if(ignores[f].substring(-1) == 'i'){
 				regex = new RegExp(ignores[f].replace(/\//g, ''), 'i');
 			}else{
 			regex = new RegExp(ignores[f].replace(/\//g, ''));

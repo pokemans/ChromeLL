@@ -2,6 +2,58 @@
 <head>
 <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>-->
 <script type="text/javascript">
+function getDrama() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://wiki.endoftheinter.net/index.php?title=Dramalinks/current&action=raw&section=0&maxage=30", true);		
+		xhr.send();
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState = 4) {
+				var t = xhr.responseText;
+				//console.log(t);
+				
+				
+				t=t.replace(/\[\[(.+?)(\|(.+?))\]\]/g,"<a href=\"http://wiki.endoftheinter.net/index.php/$1\">$3</a>");
+				t=t.replace(/\[\[(.+?)\]\]/g,"<a href=\"http://wiki.endoftheinter.net/index.php/$1\">$1</a>");
+				t=t.replace(/\[(.+?)\]/g,"<a href=\"$1\" style=\"padding-left: 0px\"><img src=\"http://wiki.endoftheinter.net/skins/monobook/external.png\"></a>");
+				t=t.replace(/href="\/index\.php/g,"href=\"http://wiki.endoftheinter.net/index.php");
+				t=t.replace(/style=/gi,"");
+				t=t.replace(/<script/gi,"<i");
+				t=t.replace(/(on)([A-Za-z]*)(=)/gi,"");
+				t=t.slice(t.indexOf("<!--- NEW STORIES GO HERE --->")+29);
+				dramas=t.slice(0,t.indexOf("<!--- NEW STORIES END HERE --->"));
+				t=t.slice(t.indexOf("<!--- CHANGE DRAMALINKS COLOR CODE HERE --->"));
+				t=t.slice(t.indexOf("{{")+2);
+				var bgcol=t.slice(0,t.indexOf("}}"));
+				var col;
+				var kermit=false;
+				switch (bgcol.toLowerCase())
+				{
+					case "kermit":
+					document.getElementById("dramalinks_ticker").style.border="2px solid #990099";
+					bgcol="black";
+					kermit=true;
+					case "black":
+					case "blue":
+					case "green":
+					col="white";
+					break;
+					default:
+					col="black";
+					break;
+				}
+				if (!kermit)				
+				{
+				dramas="<span style='text-transform:capitalize'>Current Dramalinks Level: <font color='" + bgcol + "'>" + bgcol + "</font></span><div style='background-color: "+bgcol+"; color: "+col+";'>" + dramas.slice(2).replace(/\*/g,"&nbsp;&nbsp;&nbsp;&nbsp;")+"</div>";
+				}
+				else
+				{
+				dramas="Current Dramalinks Level: <blink><font color='" + bgcol + "'>CODE KERMIT</font></blink><div style='background-color: "+bgcol+"; color: "+col+";'>" + dramas.slice(2).replace(/\*/g,"&nbsp;&nbsp;&nbsp;&nbsp;")+"</div>";
+				}
+
+				//document.getElementById("dramalinks_ticker").innerHTML=dramas;
+			}
+		}
+	}
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     //console.log(sender.tab ?
@@ -23,6 +75,10 @@ chrome.extension.onRequest.addListener(
 		}
 
         }
+	else if(request.need == "insbatchupload"){
+		chrome.tabs.executeScript(sender.tab.id, {file: 'batchupload.js', allFrames: true});
+		sendResponse('inserted batch upload');
+	}
       else if(request.need == "cfapi"){
 		/*
       		if(request.action == "update"){
@@ -48,6 +104,7 @@ chrome.extension.onRequest.addListener(
      }
      else if(request.need == "topic_userhl"){
      try{
+	//console.log('userhl called');
         if(localStorage['chromeLL_userhighlight'] == undefined){
             localStorage['chromeLL_userhighlight'] = '';
         }
@@ -55,10 +112,18 @@ chrome.extension.onRequest.addListener(
         var users = Array();
         var colors = Array();
         var texts = Array();
+	var htext = Array();
         for(var i = 0; over[i]; i++){
             users[i] = over[i].split(':')[0];
+		//console.log(users[i]);
             colors[i] = over[i].split(':')[1];
             texts[i] = over[i].split(':')[2];
+		try{
+			htext[i] = over[i].split(':')[3];
+		}catch(er){
+			console.log(er);	
+			htext[i] = '';
+		}
         }
         var found = false;
         for(var i = 0; users[i]; i++){
@@ -76,19 +141,32 @@ chrome.extension.onRequest.addListener(
             users[len] = request.user.toLowerCase();
             colors[len] = request.color;
             texts[len] = '';
+		htext[len] = '';
         }
         var ls = '';
-        for(var i = 0; users[i] != undefined; i++){
+	//console.log(users);
+	//console.log('u: ' + users.length + ' t: ' + texts.length + ' h: ' + htext.length);
+        for(var i = 0; i < users.length; i++){
             if(users[i] != ''){
-                ls += users[i] + ':' + colors[i] + ':' + texts[i] + ';';
+		console.log('not blank: ' + users[i]);
+                ls += users[i] + ':' + colors[i] + ':' + texts[i] + ':' + htext[i] + ';';
             }
         }
+	console.log(ls);
+	//console.log(found);
         localStorage['chromeLL_userhighlight'] = ls;
         sendResponse({data: 'true'});
     }catch(e){
+	console.log(e);
         sendResponse({data: e});
     }
     }
+	else if(request.need == "drama"){
+		if(localStorage['chromeLL_dramalinks'] == 'true'){
+			getDrama();
+			sendResponse({data: dramas});
+		}
+	}
     else{
       	sendResponse({data: localStorage[request.need]});
     }

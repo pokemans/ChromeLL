@@ -1,0 +1,44 @@
+1.2.12.6
+- Work safe mode
+DONE - \n on post new message
+DONE - \n on pms
+- inline image expansion
+- gs script
+- livelinks on links
+DONE- Double click board name to show dramalinks
+
+1.2.12.4
+DONE - Highlight users on links
+DONE - change color of message header text
+DONE - (TC) next to username color
+DONE - page jump on boards
+DONE - jump to last page button
+DONE - dramalinks ticker
+
+1.2.12.2
+DONE - toggle spoilers
+DONE - redirect "search" to advanced search
+
+1.2.12.1
+DONE - quickpostbody on PMs
+DONE - quickpostbody on links
+DONE - tchighlight bug
+DONE - autoexpand search
+DONE - sort by last post on message history
+DONE - auto close notifications
+DONE - page jump on message history
+DONE - label for radio buttons in popup
+DONE - (TC) after username
+DONE - filter own posts
+
+someday
+- sper.gs
+- Watch posts by TC
+- popup on new features added
+- userbar on bottom
+- keyboard shortcuts in topic
+- edit post script
+	- http://links.endoftheinter.net/linkme.php?l=213936
+
+
+- batch uploader

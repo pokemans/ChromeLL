@@ -143,7 +143,8 @@ function postBeforePreview(){
 	post.parentNode.removeChild(post);
 	preview.parentNode.insertBefore(post, preview);
 }
-if(window.location.href.indexOf('showmessages') != -1 || window.location.href.indexOf('inboxthread') != -1 || window.location.href.indexOf('linkme') != -1){
+if(window.location.href.indexOf('showmessages') != -1 || window.location.href.indexOf('inboxthread') != -1 || window.location.href.indexOf('postmsg') != -1 || window.location.href.indexOf('linkme') != -1){
+console.log('test');
 chrome.extension.sendRequest({need: "chromeLL_tagbuttons"}, function(response) {
 	if(response.data == "true"){
 		qpbody();

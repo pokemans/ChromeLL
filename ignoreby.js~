@@ -57,7 +57,7 @@ function rmby_livelinks(el){
 		var m = el.srcElement.getElementsByClassName('message-top')[0];
 		chrome.extension.sendRequest({need: "chromeLL_ignoretopicsby"}, function(response) { var ignores = response.data; rm_livelinks(ignores, el); });
 	}
-	catch(e){/*console.log('livelinks rm:', e)*/}
+	catch(e){console.log('livelinks rm:', e)}
 }
 function rm_livelinks(topics, el){
 	try{
@@ -76,6 +76,6 @@ function rm_livelinks(topics, el){
 				}
 			}	
 		}catch(e){
-		//console.log(e);
+		console.log(e);
 	}
 }

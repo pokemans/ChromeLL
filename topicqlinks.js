@@ -40,8 +40,12 @@ function mouseHandler(e){
             if(pg == undefined || pg == "Page"){
                 return 0;
             }
-            window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + pg;
-        }
+		if(e.toElement.parentNode.cells[0].getElementsByTagName('a').length == 1){
+			window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + pg;
+		}else{
+			window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[2].href + '&page=' + pg;
+        	}
+	}
     }if(e.metaKey){
         console.log(e); 
     }if(e.shiftKey && e.altKey){
@@ -54,7 +58,12 @@ function mouseHandler(e){
                 e.toElement.parentNode.getElementsByTagName('td')[i].style.background = '';
             }
         }if(e.toElement.cellIndex == 2){
-            window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + Math.ceil(e.toElement.innerHTML.split('<')[0] / 50);
+            var pg = Math.ceil(e.toElement.innerHTML.split('<')[0] / 50);
+		if(e.toElement.parentNode.cells[0].getElementsByTagName('a').length == 1){
+			window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[0].href + '&page=' + pg;
+		}else{
+			window.location = e.toElement.parentNode.cells[0].getElementsByTagName('a')[2].href + '&page=' + pg;
+        	}
         }
     }
 }
@@ -91,12 +100,12 @@ function savehl(tc, tl){
 	var size = 64;
 	if(tc.length > size){
 		for(var i = tc.length - size; i <= size; i++){
-			def += tc[i] + ":" + tl[i] + ";";
+			def += tc[i] + ":" + tl[i] + ":;";
 		}
 	}
 	else{
 		for(var i = 0; i < tc.length; i++){
-			def += tc[i] + ":" + tl[i] + ";";
+			def += tc[i] + ":" + tl[i] + ":;";
 		}
 	}
 	//console.log(def);

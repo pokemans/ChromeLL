@@ -53,6 +53,9 @@ while(document.getElementsByClassName('message-top').item(j)){
 	}
 	j = j + 1;
 }
+if(window.location.href.match(/u=([0-9]+)/) != undefined || window.location.href.match(/r=([0-9]+)/) != undefined){
+	index = -1;
+}
 if(index == -1){
 	console.log('unknown tc!');
 }else{
@@ -60,7 +63,7 @@ if(index == -1){
 }
 }
 function getTopic(pw){
-	return pw.substring(pw.indexOf("topic") + 6, pw.indexOf("topic") + 13);
+	return pw.match(/topic=([0-9]+)/i)[1];
 }
 function save(tc, tl, hlc){
 	var def = '';

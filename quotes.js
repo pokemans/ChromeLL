@@ -18,10 +18,12 @@ function quotify(mcol){
 		m[i].style.marginRight = '30px';
 		m[i].style.marginLeft = '10px';
 		m[i].style.paddingBottom = '10px';
-		m[i].style.marginTop = '10px';
+		m[i].style.marginTop = '0px';
 		m[i].style.borderColor = mcol;
 		n = m[i].getElementsByClassName('message-top')[0];
-		n.style.background = mcol;
+		if(n.style.background == ''){
+			n.style.background = mcol;
+		}		
 		n.style.marginTop = '0px';
 		n.style.paddingBottom = '2px';
 		n.style.marginLeft = '-6px';

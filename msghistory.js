@@ -17,16 +17,23 @@ function insHJump(){
 		insert.style.float = 'right';
 		insert.addEventListener('click', jumpHandler, false);
 		tmp = trs[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0].href.match(/topic=([0-9]+)/)[1];
-		insert.innerHTML = '<a href="##' + tmp + '">#</a>';
+		insert.innerHTML = '<a href="##' + tmp + '" id="jumpWindow">#</a> <a href="##' + tmp + '" id="jumpLast">&gt;</a>';
 		trs[i].getElementsByTagName('td')[1].insertBefore(insert, trs[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0]);
 	}
 	
 }
 function jumpHandler(ev){
 	var a = ev.srcElement.parentNode.parentNode.parentNode.getElementsByTagName('td')[2]
-	pg = prompt("Page Number (" + Math.ceil(a.innerHTML.split('<')[0] / 50) + " total)","Page");
+	var last = Math.ceil(a.innerHTML.split('<')[0] / 50);
+	if(ev.srcElement.id == 'jumpWindow'){
+	pg = prompt("Page Number (" + last + " total)","Page");
             if(pg == undefined || pg == "Page"){
                 return 0;
             }
-            window.location = ev.srcElement.parentNode.parentNode.parentNode.getElementsByTagName('td')[1].getElementsByTagName('a')[1].href + '&page=' + pg;
+	}else{
+		console.log(last);
+		pg = last;
+	}
+            window.location = ev.srcElement.parentNode.parentNode.parentNode.getElementsByTagName('td')[1].getElementsByTagName('a')[2].href + '&page=' + pg;
 }
+	

@@ -89,7 +89,7 @@ function clearsaved(){
 function restore(){
 
 	//DEFS
-	localStorage['chromeLL_version'] = '1.2.13.5';
+	localStorage['chromeLL_version'] = '1.2.13.2';
     //var defEnable = new Array("page_like", "
 	document.disable.quicklinks.value = localStorage['chromeLL_quicklinks'];
 	if(localStorage['chromeLL_tchighlight'] == undefined){

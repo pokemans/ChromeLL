@@ -1,0 +1,45 @@
+1.2.2(d)
+	- fixed a bug which caused quickreply title to float over user highlights
+
+1.2.1
+	- fixed a bug which caused tc highlight to sometimes highlight random users on livelinks update
+
+1.2.0
+	- added livelinks support to tc highlight + user highlight
+	- reorganized options page
+	- reformatted quick reply buttons + post numberer
+
+1.1.9
+	- reorganized options
+	- replaced "like" button with customizeable quickreply
+	
+1.1.8
+	- added "clear removed topics"
+	- reorganized options
+	- added "like" button
+
+1.1.7
+	- changed options page layout (to table)
+	- added topic quick links (remove topic, page jump, highlight topic)
+
+1.1.6
+	- fixed a bug in topic removal by tc and keyword
+
+1.1.5
+	- added topic highlighting by keyword
+
+1.1.4
+	- fixed tc highlighting
+
+1.1.3
+	- added https support
+
+1.1.2
+	- added ignore topics by user or keyword
+
+
+####################
+extension code by chairface
+userscript code credited where possible
+nothing is copyrighted. 
+####################
